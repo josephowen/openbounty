@@ -11,7 +11,7 @@
             <div name="description"> {{content.challenge.challenge}}</div>
 			<div name="expires"> {{content.challenge.expiration_date}}</div>
 			{{content.challenge.user}}
-			<a href="/view_challenges/{{content.challenge.id}}">{{ content.comments }} Comments</a>
+			<a href="/challenge/{{content.challenge.id}}">{{ content.comments }} Comments</a>
 			<div class="post_comment">
 				<form id="challenge_id" action="" method="post">{% csrf_token %}				
 				<input type="hidden" name="challenge_id" value="{{ content.challenge.id }}">				

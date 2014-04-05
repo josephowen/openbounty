@@ -9,6 +9,7 @@
 
     <!-- Bootstrap -->
     <link href="{% static 'openbounty/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "openbounty/css/main.css" %}" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,14 +22,13 @@
       {% endblock %}
   </head>
   <body role="document">
-    
+
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button class="navbar-toggle collapsed" data-target=".navbar-collapse" data-toggle="collapse" type="button">
-                    <span class="sr-only">
-                        Toggle navigation
-                    </span>
+            <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button">
+                    <span class="sr-only">Toggle navigation</span>
                     <!-- bar icons for the 'button' -->
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -36,7 +36,9 @@
                 </button>
                 <a class="navbar-brand" href="#">Open Bounty</a>
             </div>
-            <div class="navbar-collapse collapse" style="height: 1px;">
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     {# Navbar stuff generation goes here #}
                     <li><a href="#butts">Main</a></li>

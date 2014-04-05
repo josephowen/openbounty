@@ -10,13 +10,4 @@
       <input type="submit" value="Submit" />
       </form>
     </div>
-    <div class="container">
-      {% for challenge in challenges %}
-        {{challenge.bounty}}
-        {{challenge.title}}
-        {{challenge.expiration_date}}
-        {{challenge.user}}
-        <br/>
-      {% endfor %}
-    </div>
 {% endblock content %}

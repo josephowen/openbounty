@@ -47,6 +47,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+AUTH_USER_MODEL='openbounty.BountyUser'
+
 ROOT_URLCONF = 'mainsite.urls'
 
 WSGI_APPLICATION = 'mainsite.wsgi.application'

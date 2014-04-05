@@ -13,14 +13,14 @@ def create(request):
     form = ChallengeForm()
     if request.method == 'POST':
 	form = ChallengeForm(request.POST)
-	if form.is_valid() and request.user:
+	if form.is_valid() and request.user.id:
 	    bounty = form.cleaned_data['bounty']
 	    title = form.cleaned_data['title']
 	    challenge = form.cleaned_data['challenge']
 	    expiration_date = form.cleaned_data['expiration_date']
 	    challenge_object = Challenge.objects.create(user=request.user,bounty=bounty,title=title,challenge=challenge,expiration_date=expiration_date)
 	    challenge_object.save()
-	elif not request.user:
+	elif not request.user.id:
 	    return HttpResponse("You need to login");
 
     context = {}

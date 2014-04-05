@@ -1,59 +1,66 @@
-<h2>Register</h2>
-{% if logged_in %}
-You must log out before you can register.
-<br />
-{% else %}
-<div class="state">
-{{ state|linebreaks }}
-<font color="red">{{ errors|linebreaks }}</font>
-</div>
-<form action="{% url 'register' %}" method="post">
-  {% csrf_token %}
-  <div class="form">
-    <label for="username">Username:</label><br />
-    {% if username %}
-    {{ username }}
-    {% else %}
+{% extends "openbounty/base.html" %}
+{% block title %}
+  Register | Open Bounty
+{% endblock title %}
+
+{% block content %}
+  
+  {% if logged_in %}
+    You must log out before you can register.
     <br />
-    {% endif %}
-  </div>
-
-  <div class="form">
-    <label for="username">Username:</label><br />
-    <input type="text" name="username" value="{{ username }}" size="40" />
-  </div>
-
-  <div class="form">
-    <label for="first">First Name:</label><br />
-    <input type="text" name="first" value="{{ first }}" size="40" />
-  </div>
-
-  <div class="form">
-    <label for="last">Last Name:</label><br />
-    <input type="text" name="last" value="{{ last }}" size="40" />
-  </div>
-
-  <div class="form">
-    <label for="email">Email Address:</label><br />
-    <input type="text" name="email" value="{{ email }}" size="40" />
-  </div>
-
-  <div class="form">
-    <label for="phone">Phone Number:</label><br />
-    <input type="text" name="phone" value="{{ phone }}" size="40" />
-  </div>
-
-  <div class="form">
-    <label for="password">Password:</label><br />
-    <input type="password" name="password" value="" size="40" />
-  </div>
+  {% else %}
+    <div class="state">
+    {{ state|linebreaks }}
+    <font color="red">{{ errors|linebreaks }}</font>
+    </div>
+    <form action="{% url 'register' %}" method="post">
+      {% csrf_token %}
+      <div class="form">
+        <label for="username">Username:</label><br />
+        {% if username %}
+        {{ username }}
+        {% else %}
+        <br />
+        {% endif %}
+      </div>
   
-  <div class="form">
-    <label for="reenterpassword">Reenter Password:</label><br />
-    <input type="password" name="reenterpassword" value="" size="40" />
-  </div>
+      <div class="form">
+        <label for="username">Username:</label><br />
+      <input type="text" name="username" value="{{ username }}" size  ="40" />
+      </div>
   
-  <input type="submit" value="Register" />
-  <input type="hidden" name="next" value="{{ next }}" />
-</form>
-{% endif %}
+      <div class="form">
+        <label for="first">First Name:</label><br />
+      <input type="text" name="first" value="{{ first }}" size="40"   />
+      </div>
+  
+      <div class="form">
+        <label for="last">Last Name:</label><br />
+        <input type="text" name="last" value="{{ last }}" size="40" />
+      </div>
+  
+      <div class="form">
+        <label for="email">Email Address:</label><br />
+      <input type="text" name="email" value="{{ email }}" size="40"   />
+      </div>
+  
+      <div class="form">
+        <label for="phone">Phone Number:</label><br />
+      <input type="text" name="phone" value="{{ phone }}" size="40"   />
+      </div>
+  
+      <div class="form">
+        <label for="password">Password:</label><br />
+        <input type="password" name="password" value="" size="40" />
+      </div>
+      
+      <div class="form">
+        <label for="reenterpassword">Reenter Password:</label><br />
+      <input type="password" name="reenterpassword" value="" size=" 40" />
+      </div>
+      
+      <input type="submit" value="Register" />
+      <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+  {% endif %}
+{% endblock content %}

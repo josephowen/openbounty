@@ -22,15 +22,15 @@ def create(request):
     form = ChallengeForm()
     if request.method == 'POST':
         form = ChallengeForm(request.POST)
-    if form.is_valid() and request.user.is_authenticated():
-        bounty = form.cleaned_data['bounty']
-        title = form.cleaned_data['title']
-        challenge = form.cleaned_data['challenge']
-        expiration_date = form.cleaned_data['expiration_date']
-        challenge_object = Challenge.objects.create(user=request.user,bounty=bounty,title=title,challenge=challenge,expiration_date=expiration_date)     
-        return HttpResponseRedirect('')     
-    elif not request.user.is_authenticated():
-        return HttpResponse("You need to login");
+        if form.is_valid() and request.user.is_authenticated():
+            bounty = form.cleaned_data['bounty']
+            title = form.cleaned_data['title']
+            challenge = form.cleaned_data['challenge']
+            expiration_date = form.cleaned_data['expiration_date']
+            challenge_object = Challenge.objects.create(user=request.user,bounty=bounty,title=title,challenge=challenge,expiration_date=expiration_date)     
+            return HttpResponseRedirect('')     
+        elif not request.user.is_authenticated():
+            return HttpResponse("You need to login");
 
     context = get_base_context(request)
     context['form'] = form
@@ -39,19 +39,7 @@ def create(request):
 def view_challenges(request):
     form = CommentForm()
     if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid() and request.user.is_authenticated():
-            title = form.cleaned_data['title']
-            comment = form.cleaned_data['comment']
-            challenge_id = request.POST['challenge_id']
-            challenge = Challenge.objects.get(id = challenge_id)
-            user = request.user
-            date_posted = datetime.datetime.now()
-            comment_object = Comment.objects.create(user=user,title=title,comment=comment,challenge=challenge,date_posted=date_posted)
-            return HttpResponseRedirect('')
-
-        elif not request.user.is_authenticated():
-            return HttpResponse("You need to login");
+        add_comment(request)
     context = get_base_context(request)
     challenges = Challenge.objects.all()
     context['contents'] = []
@@ -62,3 +50,28 @@ def view_challenges(request):
         context['contents'].append(data)
     context['form'] = form
     return render(request, 'openbounty/view.html', context)
+
+def challenge(request, challenge_id):
+    form = CommentForm()
+    if request.method == 'POST':
+        add_comment(request)
+    context = {}
+    context['form'] = form    
+    context['challenge'] = Challenge.objects.get(id = challenge_id)
+    context['comments'] = Comment.objects.filter(challenge=context['challenge'])
+    return render(request, 'openbounty/challenge.html', context)
+
+def add_comment(request):
+    form = CommentForm(request.POST)
+    if form.is_valid() and request.user.is_authenticated():
+        title = form.cleaned_data['title']
+        comment = form.cleaned_data['comment']
+        challenge_id = request.POST['challenge_id']
+        challenge = Challenge.objects.get(id = challenge_id)
+        user = request.user
+        date_posted = datetime.datetime.now()
+        comment_object = Comment.objects.create(user=user,title=title,comment=comment,challenge=challenge,date_posted=date_posted)
+        return HttpResponseRedirect('')
+    elif not request.user.is_authenticated():
+        return HttpResponse("You need to login");
+    

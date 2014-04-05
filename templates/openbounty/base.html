@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +40,9 @@
             <div class="navbar-collapse collapse" style="height: 1px;">
                 <ul class="nav navbar-nav">
                     {# Navbar stuff generation goes here #}
-                    <li><a href="#butts">Main</a></li>
+                    {% for link in navlinks %}
+                      <li class="{% tabactive link.url request %}" ><a href="{% url link.url %}">{{ link.label }}</a></li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>

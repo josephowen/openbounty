@@ -7,15 +7,16 @@
     <div class="container">
 	{% for content in contents %}
 	      	<div class="challenge">  
-			{{content.challenge.id}}
-			{{content.challenge.title}}
-			{{content.challenge.expiration_date}}
+			<div name="title">Title {{content.challenge.title}}</div>
+            <div name="description"> {{content.challenge.challenge}}</div>
+			<div name="expires"> {{content.challenge.expiration_date}}</div>
 			{{content.challenge.user}}
-			<a href="#">{{ content.comments }} Comments</a>
+			<a href="/view_challenges/{{content.challenge.id}}">{{ content.comments }} Comments</a>
 			<div class="post_comment">
 				<form id="challenge_id" action="" method="post">{% csrf_token %}				
 				<input type="hidden" name="challenge_id" value="{{ content.challenge.id }}">				
-				{{form.as_p}}
+				<div name="title">Title {{form.title}}</div>
+                <div name="content">Content {{form.comment}}</div>
 				<input type="submit" value="Submit" />
 				</form>
 			</div>

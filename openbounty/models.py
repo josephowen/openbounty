@@ -9,7 +9,9 @@ class Challenge(models.Model):
     bounty = models.FloatField()
     title = models.CharField(max_length = 120)
     challenge = models.CharField(max_length = 2000)
+    post_date = models.DateTimeField("Post Date")
     expiration_date = models.DateTimeField("Challenge Expiration Date")
+    fulfilled = models.BooleanField(default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     backers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='backings', through='Backing')
 

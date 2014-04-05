@@ -20,6 +20,8 @@ def create(request):
 	    expiration_date = form.cleaned_data['expiration_date']
 	    challenge_object = Challenge.objects.create(user=request.user,bounty=bounty,title=title,challenge=challenge,expiration_date=expiration_date)
 	    challenge_object.save()
+	elif not request.user:
+	    return HttpResponse("You need to login");
 
     context = {}
     context['challenges'] = Challenge.objects.all()

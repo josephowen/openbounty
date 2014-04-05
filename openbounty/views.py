@@ -9,11 +9,13 @@ def index(request):
     return render(request, 'openbounty/index.html', context)
 
 def create(request):
+    user = BountyUser.objects.get(identifier="dummy",phone_number="555")
+    if not user:
+	user = BountyUser.objects.create_user("dummy","555");
     form = ChallengeForm()
     if request.method == 'POST':
 	form = ChallengeForm(request.POST)
 	if form.is_valid():
-	    user = BountyUser.objects.get(identifier="dummy",phone_number="555")
 	    bounty = form.cleaned_data['bounty']
 	    title = form.cleaned_data['title']
 	    challenge = form.cleaned_data['challenge']

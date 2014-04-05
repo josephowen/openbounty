@@ -10,8 +10,8 @@ def index(request):
 
 def create(request):
     user = BountyUser.objects.get(identifier="dummy",phone_number="555")
-    if not user:
-	user = BountyUser.objects.create_user("dummy","555");
+    #if not user:
+    #user = BountyUser.objects.create_user("dummy","555");
     form = ChallengeForm()
     if request.method == 'POST':
 	form = ChallengeForm(request.POST)

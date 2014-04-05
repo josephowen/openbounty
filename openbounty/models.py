@@ -1,8 +1,10 @@
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
+#from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import BaseUserManager
 from django.db import models
 from django.conf import settings
 
+'''
 class MyUserManager(BaseUserManager):
     def create_user(self, identifier, phone_number, password=None):
         """
@@ -33,14 +35,7 @@ class MyUserManager(BaseUserManager):
         user.is_admin = True
         user.save(using=self._db)
         return user
-# Create your models here.
-class Challenge(models.Model):
-    bounty = models.FloatField()
-    title = models.CharField(max_length = 120)
-    challenge = models.CharField(max_length = 2000)
-    expiration_date = models.DateTimeField("Challenge Expiration Date")
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    
+
 class BountyUser(AbstractBaseUser):
     identifier = models.CharField(max_length=40, unique=True, db_index=True)
     USERNAME_FIELD = 'identifier'
@@ -54,5 +49,23 @@ class BountyUser(AbstractBaseUser):
     
     def get_short_name():
         return USERNAME_FIELD
+'''
+
+# Create your models here.
+class Challenge(models.Model):
+    bounty = models.FloatField()
+    title = models.CharField(max_length = 120)
+    challenge = models.CharField(max_length = 2000)
+    expiration_date = models.DateTimeField("Challenge Expiration Date")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    backers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='backings', through='Backing')
+
+    
+class BountyUser(AbstractUser):
+    phone_number = models.CharField(max_length=15)
 
 
+class Backing(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    challenge = models.ForeignKey(Challenge)
+    

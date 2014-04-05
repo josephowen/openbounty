@@ -1,19 +1,22 @@
-<html>
-<head>
-</head>
-	<h1>Challenges</h2>
-	<div class="container">
-		<form id="create_challenge" action="" method="post">{% csrf_token %}
-		{{ form.as_p }}
-		<input type="submit" value="Submit" />
-		</form>
-	</div>
-	<div class="container">
-		{% for challenge in challenges %}
-			{{challenge.bounty}}
-			{{challenge.title}}
-			{{challenge.expiration_date}}
-			{{challenge.user}}
-		{% endfor %}
-	</div>
-</html>
+{% extends "openbounty/base.html" %}
+{% block title %}
+ Challenges
+{% endblock title %}
+
+{% block content %}
+    <div class="container">
+      <form id="create_challenge" action="" method="post">{% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Submit" />
+      </form>
+    </div>
+    <div class="container">
+      {% for challenge in challenges %}
+        {{challenge.bounty}}
+        {{challenge.title}}
+        {{challenge.expiration_date}}
+        {{challenge.user}}
+        <br/>
+      {% endfor %}
+    </div>
+{% endblock content %}

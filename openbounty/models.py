@@ -3,13 +3,14 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import BaseUserManager
 from django.db import models
 from django.conf import settings
+from datetime import datetime
 
 # Create your models here.
 class Challenge(models.Model):
     bounty = models.FloatField()
     title = models.CharField(max_length = 120)
     challenge = models.CharField(max_length = 2000)
-    post_date = models.DateTimeField("Post Date")
+    post_date = models.DateTimeField("Post Date", default=datetime.now)
     expiration_date = models.DateTimeField("Challenge Expiration Date")
     fulfilled = models.BooleanField(default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
@@ -29,5 +30,5 @@ class Comment(models.Model):
     challenge = models.ForeignKey(Challenge)
     title = models.CharField(max_length = 120)
     comment = models.CharField(max_length = 2000)
-    date_posted = models.DateTimeField("Date Posted")
+    date_posted = models.DateTimeField("Date Posted", auto_now_add=True)
     

@@ -20,6 +20,9 @@
         Sign in</button>
         <input type="hidden" name="next" value="{{ next }}" />
       </form>
+      {% if errors %}
+        <div class="alert alert-danger">{{errors|linebreaks}}</div>
+      {% endif %}
     </div>
   </form>
  {% endif %}

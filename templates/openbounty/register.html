@@ -5,7 +5,7 @@ You must log out before you can register.
 {% else %}
 <div class="state">
 {{ state|linebreaks }}
-<font color="red"{{ errors|linebreaks }}</font>
+<font color="red">{{ errors|linebreaks }}</font>
 </div>
 <form action="{% url 'register' %}" method="post">
   {% csrf_token %}

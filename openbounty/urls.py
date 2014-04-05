@@ -7,4 +7,5 @@ urlpatterns = patterns('',
     url(r'^create', views.create, name='Create Challenge'),
     url(r'^login', loginviews.login, name='login'),
     url(r'^register', loginviews.register, name='register'),
+    url(r'^logout', loginviews.logout, name='logout'),
 )

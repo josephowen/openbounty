@@ -108,3 +108,8 @@ def login(request):
        
     context.update({'logged_in': request.user.is_authenticated(), 'state':state, 'username': usernameEntered, 'next': next})
     return render_to_response('openbounty/login.html', context, RequestContext(request))
+
+def logout(request):
+    auth_logout(request)
+    #render(request, 'checkout/logout.html')
+    return redirect(request.GET.get('next','/'))

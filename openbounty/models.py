@@ -14,7 +14,7 @@ class Challenge(models.Model):
 class BountyUser(AbstractBaseUser):
     identifier = models.CharField(max_length=40, unique=True, db_index=True)
     USERNAME_FIELD = 'identifier'
-    phone_number = models.CharField()
+    phone_number = models.CharField(max_length=15)
     REQUIRED_FIELDS = ['phone_number']
     
     def get_full_name():

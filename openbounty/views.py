@@ -31,18 +31,18 @@ def view_challenges(request):
     form = CommentForm()
     if request.method == 'POST':
         form = CommentForm(request.POST)
-    if form.is_valid() and request.user.is_authenticated():
-        title = form.cleaned_data['title']
-        comment = form.cleaned_data['comment']
-        challenge_id = request.POST['challenge_id']
-        challenge = Challenge.objects.get(id = challenge_id)
-        user = request.user
-        date_posted = datetime.datetime.now()
-        comment_object = Comment.objects.create(user=user,title=title,comment=comment,challenge=challenge,date_posted=date_posted)
-        return HttpResponseRedirect('')
+        if form.is_valid() and request.user.is_authenticated():
+            title = form.cleaned_data['title']
+            comment = form.cleaned_data['comment']
+            challenge_id = request.POST['challenge_id']
+            challenge = Challenge.objects.get(id = challenge_id)
+            user = request.user
+            date_posted = datetime.datetime.now()
+            comment_object = Comment.objects.create(user=user,title=title,comment=comment,challenge=challenge,date_posted=date_posted)
+            return HttpResponseRedirect('')
 
-    elif not request.user.is_authenticated():
-        return HttpResponse("You need to login");
+        elif not request.user.is_authenticated():
+            return HttpResponse("You need to login");
     context = {}    
     challenges = Challenge.objects.all()
     context['contents'] = []

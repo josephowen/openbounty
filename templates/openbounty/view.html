@@ -14,7 +14,7 @@
 			<a href="#">{{ content.comments }} Comments</a>
 			<div class="post_comment">
 				<form id="challenge_id" action="" method="post">{% csrf_token %}				
-				<input type="hidden" name="challenge_id" value="{{ challenge.id }}">				
+				<input type="hidden" name="challenge_id" value="{{ content.challenge.id }}">				
 				{{form.as_p}}
 				<input type="submit" value="Submit" />
 				</form>

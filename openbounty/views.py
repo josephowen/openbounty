@@ -19,7 +19,7 @@ def create(request):
 	    challenge = form.cleaned_data['challenge']
 	    expiration_date = form.cleaned_data['expiration_date']
 	    challenge_object = Challenge.objects.create(user=request.user,bounty=bounty,title=title,challenge=challenge,expiration_date=expiration_date)
-	    challenge_object.save()
+	
 	elif not request.user.is_authenticated():
 	    return HttpResponse("You need to login");
 

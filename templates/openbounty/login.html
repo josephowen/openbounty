@@ -6,23 +6,21 @@
 {% block content %}
  {% if logged_in %}
  You must log out before you can log in.
- <br />
- {% else %}
- <div class="state">
- {{ state }}
- </div>
- <form action="{% url 'login' %}" method="post">
-   {% csrf_token %}
-   <div class="form">
-     <label for="username">Username or Email:</label><br />
-      <input type="text" name="username" value="{{ username }}" siz="40" autofocus />
-   </div>
-   <div class="form">
-     <label for="password">Password:</label><br />
-     <input type="password" name="password" value="" size="40" />
-   </div>
-   <input type="submit" value="Log In" />
-   <input type="hidden" name="next" value="{{ next }}" />
- </form>
+  <br />
+  {% else %}
+  <form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <div class="container">
+      <form class="form-signin" role="form">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input type="text" class="form-control" name="username" placeholder="User Name" value="{{ username }}" required autofocus />
+        <input type="password" class="form-control" name="password" placeholder="Password" required/>
+        <br/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">
+        Sign in</button>
+        <input type="hidden" name="next" value="{{ next }}" />
+      </form>
+    </div>
+  </form>
  {% endif %}
 {% endblock content %}

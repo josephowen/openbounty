@@ -79,6 +79,7 @@ def register(request):
 def login(request):
     usernameEntered = username = password = ''
     state = "Please log in below..."
+    errors = []
     next = request.GET.get('next', '/')
     
     context = get_base_context(request)
@@ -91,7 +92,7 @@ def login(request):
         username = usernameEntered
 
         if len(get_user_model().objects.filter(username=username)) < 1 and len(get_user_model().objects.filter(email=username)) < 1:
-            state = "Your username and/or password are incorrect."
+            errors = "Your username and/or password are incorrect."
         else:
             user = authenticate(username=username, password=password)
             if user == None and len(get_user_model().objects.filter(email=username)) != 0:
@@ -103,11 +104,12 @@ def login(request):
                     state = "You're successfully logged in!"
                     return redirect(request.POST.get('next'))
                 else:
-                    state = "Your account is not active, please contact the site admin."
+                    errors = "Your account is not active, please contact the site admin."
             else:
-                state = "Your username and/or password are incorrect."
+                errors = "Your username and/or password are incorrect."
        
-    context.update({'logged_in': request.user.is_authenticated(), 'state':state, 'username': usernameEntered, 'next': next})
+    errors = "\n".join(errors)
+    context.update({'logged_in': request.user.is_authenticated(), 'state':state, 'errors':errors, 'username': usernameEntered, 'next': next})
     return render_to_response('openbounty/login.html', context, RequestContext(request))
 
 def logout(request):

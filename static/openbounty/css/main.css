@@ -8,7 +8,7 @@ body { padding-top: 70px; }
 /* Login page CSS */
 .form-signin {
 	max-width: 400px;
-	padding: 15px
+	padding: 15px;
 	margin: 0px auto;
 }
 .form-signin .alert {

@@ -17,15 +17,6 @@
       {% csrf_token %}
       <div class="form">
         <label for="username">Username:</label><br />
-        {% if username %}
-        {{ username }}
-        {% else %}
-        <br />
-        {% endif %}
-      </div>
-  
-      <div class="form">
-        <label for="username">Username:</label><br />
       <input type="text" name="username" value="{{ username }}" size  ="40" />
       </div>
   

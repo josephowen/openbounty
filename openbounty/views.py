@@ -5,8 +5,17 @@ from openbounty.models import Challenge, BountyUser, Comment
 from openbounty.forms import ChallengeForm, CommentForm
 # Create your views here.
 
+def get_base_context(request):
+    username = ''
+    logged_in = request.user.is_authenticated()
+    if logged_in:
+        username = request.user.username
+    links = [{"url":"index", "label":"Home"}, {"url":"login", "label":"Log in"}, {"url":"register", "label":"Register"}, {"url":"logout", "label":"Log out"}]
+    context = {'request':request, 'navlinks':links, 'logged_in':logged_in, 'username':username}
+    return context
+
 def index(request):
-    context = {}
+    context = get_base_context(request)
     return render(request, 'openbounty/index.html', context)
 
 def create(request):
@@ -23,7 +32,7 @@ def create(request):
     elif not request.user.is_authenticated():
         return HttpResponse("You need to login");
 
-    context = {}
+    context = get_base_context(request)
     context['form'] = form
     return render(request, 'openbounty/create.html', context)
 
@@ -43,7 +52,7 @@ def view_challenges(request):
 
         elif not request.user.is_authenticated():
             return HttpResponse("You need to login");
-    context = {}    
+    context = get_base_context(request)
     challenges = Challenge.objects.all()
     context['contents'] = []
     for challenge in challenges:

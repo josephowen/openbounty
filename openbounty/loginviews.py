@@ -6,15 +6,7 @@ from django.contrib.auth import get_user_model
 
 from openbounty.models import Challenge, BountyUser
 from openbounty.forms import ChallengeForm
-
-def get_base_context(request):
-    username = ''
-    logged_in = request.user.is_authenticated()
-    if logged_in:
-        username = request.user.username
-    links = [{"url":"index", "label":"Home"}, {"url":"login", "label":"Log in"}, {"url":"register", "label":"Register"}, {"url":"logout", "label":"Log out"}]
-    context = {'request':request, 'navlinks':links, 'logged_in':logged_in, 'username':username}
-    return context
+from openbounty.views import get_base_context
 
 def register(request):
     state = ["Enter your information below..."]

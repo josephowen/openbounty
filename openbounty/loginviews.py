@@ -7,13 +7,22 @@ from django.contrib.auth import get_user_model
 from openbounty.models import Challenge, BountyUser
 from openbounty.forms import ChallengeForm
 
+def get_base_context(request):
+    username = ''
+    logged_in = request.user.is_authenticated()
+    if logged_in:
+        username = request.user.username
+    links = [{"url":"index", "label":"Home"}, {"url":"login", "label":"Log in"}, {"url":"register", "label":"Register"}, {"url":"logout", "label":"Log out"}]
+    context = {'request':request, 'navlinks':links, 'logged_in':logged_in, 'username':username}
+    return context
+
 def register(request):
     state = ["Enter your information below..."]
     errors = []
     username = email = phone = first = last = password = reenterpassword = ''
     next = request.GET.get('next', '/')
     
-    context = {} #get_base_context(request)
+    context = get_base_context(request)
 
     if request.POST:
         username = request.POST.get('username')
@@ -80,7 +89,7 @@ def login(request):
     state = "Please log in below..."
     next = request.GET.get('next', '/')
     
-    context = {}
+    context = get_base_context(request)
     
     if request.POST:
         usernameEntered = request.POST.get('username')

@@ -1,0 +1,26 @@
+{% extends 'openbounty/base.html' %}
+{% block title %}
+List of Users
+{% endblock title %}
+
+{% block content %}
+<h1>All Users</h1>
+<table>
+<tr>
+<td>Name</td>
+<td>Username</td>
+<td>Email</td>
+<td>Phone Number</td>
+</tr>
+{% for user in users %}
+<tr>
+<td>{{ user.name }}</td>
+<td>{{ user.username }}</td>
+<td>{{ user.email }}</td>
+<td>{{ user.phone }}</td>
+</tr>
+<br />
+{% endfor %}
+</table>
+{% endblock content %}  
+

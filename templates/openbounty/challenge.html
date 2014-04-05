@@ -1,0 +1,32 @@
+{% extends "openbounty/base.html" %}
+{% block title %}
+ Challenge
+{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <div class="challenge">  
+		    <div name="title">Title {{challenge.title}}</div>
+            <div name="description"> {{challenge.challenge}}</div>
+		    <div name="expires"> {{challenge.expiration_date}}</div>
+		</div>
+        <div class="post_comment">
+			<form id="challenge_id" action="" method="post">{% csrf_token %}				
+			<input type="hidden" name="challenge_id" value="{{ content.challenge.id }}">				
+			<div name="title">Title {{form.title}}</div>
+            <div name="content">Content {{form.comment}}</div>
+			<input type="submit" value="Submit" />
+			</form>
+		</div>
+        <div class = "comments">
+            {{content.challenge.user}}
+            {% for comment in comments %}
+                <div class="comment">
+                    <div name="title">Title: {{comment.title}}</div>
+                    <div name="comment">Comment: {{comment.comment}}</div>
+                    <div name="user">User: {{comment.user}}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

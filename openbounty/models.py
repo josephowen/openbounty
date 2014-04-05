@@ -1,12 +1,13 @@
 from django.contrib.auth import models.AbstractBaseUser
 from django.db import models
+from django.conf import settings
 
 
 # Create your models here.
 class Challenge(models.Model):
     bounty = models.FloatField()
     title = models.CharField(max_length = 120)
-    challenge = models.CharField(max_length = 1000)
+    challenge = models.CharField(max_length = 2000)
     expiration_date = models.DateTimeField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     

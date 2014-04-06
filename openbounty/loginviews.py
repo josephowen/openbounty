@@ -9,7 +9,6 @@ from openbounty.forms import ChallengeForm
 from openbounty.views import get_base_context
 
 def register(request):
-    state = ["Enter your information below..."]
     errors = []
     username = email = phone = first = last = password = reenterpassword = ''
     next = request.GET.get('next', '/')
@@ -27,7 +26,6 @@ def register(request):
         next = request.POST.get('next')
 
         failed = False
-        state.append("")
 
         if username == "":
             errors.append("Username required.")
@@ -64,16 +62,14 @@ def register(request):
             if user is not None:
                 if user.is_active:
                     auth_login(request, user)
-                    state = ["Successfully registered!"]
                     return redirect(request.POST.get('next'))
                 else:
-                    state = ["Your account is not active, please contact the site admin."]
+                    errors = ["Your account is not active, please contact the site admin."]
             else:
-                state = ["Failed to register."]
+                errors = ["Failed to register."]
             
-    state = "\n".join(state)
     errors = "\n".join(errors)
-    context.update({'logged_in': request.user.is_authenticated(), 'state':state, 'errors': errors, 'username': username, 'email': email, 'first': first, 'last': last, 'next': next})
+    context.update({'logged_in': request.user.is_authenticated(), 'errors': errors, 'username': username, 'email': email, 'first': first, 'last': last, 'next': next})
     return render_to_response('openbounty/register.html', context, RequestContext(request))
 
 def login(request):

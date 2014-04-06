@@ -38,7 +38,8 @@ def venmo(request, context):
     r = requests.get('https://api.venmo.com/v1/me?access_token='+user.access_token)   
     if r.status_code == 200:
         r_json = r.json()
-        user.venmo = r_json['data']['actor']['id']
+        user.venmo = r_json['data']['user']['id']
+        user.save()
         balance = r_json['data']['balance']
         context['venmo'] = balance
         context['form'] = MoneyForm()

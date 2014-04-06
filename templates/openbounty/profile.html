@@ -20,7 +20,13 @@
         <li>Email: {{ email }}</li>
         <li>Phone: {{ phone }}</li>
         <li>Wallet: ${{ wallet }}</li>
-    </ul>
+        <li>
+        <form class="add-money" action="" method="post">{% csrf_token %}
+            {{ form.money }}       
+            <button type="submit" class="btn btn-default">Add Money</button>
+        </form>
+        </li>
+    </ul>    
     <div class = "container"> 
         <div class="challenges">
             <ul class="nav nav-tabs" id="myTab">

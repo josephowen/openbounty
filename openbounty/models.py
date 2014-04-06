@@ -35,3 +35,8 @@ class Proof(models.Model):
     description = models.CharField(max_length=5000)
     votes = models.IntegerField(default=0)
     winner = models.BooleanField(default=False)
+    voters = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="claim_votes", through='ClaimVotes')
+
+class ClaimVotes(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    claim = models.ForeignKey(Proof)

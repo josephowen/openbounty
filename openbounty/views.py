@@ -42,23 +42,40 @@ def create(request):
     return render(request, 'openbounty/create.html', context)
 
 def view_challenges(request):
+    if request.method == 'POST':
+        back_challenge(request, request.POST['challenge_id'], request.POST['action'])
     context = get_base_context(request)
     challenges = Challenge.objects.all()
     challengelist = []
     for challenge in sorted(challenges, key=lambda c: c.bounty, reverse=True):
+        challenge_and_backers = {}
+        challenge_and_backers['challenge'] = challenge
+        try:
+            all_backers = Backing.objects.filter(challenge=challenge)
+            challenge_and_backers['backers'] = len(all_backers)
+            if Backing.objects.filter(user=request.user, challenge=challenge):
+                 challenge_and_backers['backed'] = True
+        except Backing.DoesNotExist:
+            challenge_and_backers['backers']  = None
+            challenge_and_backers['backed'] = False
+        
         challenge.bounty = int(challenge.bounty)
-        challengelist.append(challenge)
-
+        challengelist.append(challenge_and_backers)
+        
     context['challenges'] = challengelist
     return render(request, 'openbounty/all_challenges.html', context)
 
-def back_challenge(request, challenge_id):
-    if not user.is_authenticated:
+def back_challenge(request, challenge_id, action):
+    if not request.user.is_authenticated:
         redirect("index")
     challenge = Challenge.objects.get(id = challenge_id)
-    user = request.user
-    backer = Backing(user=user, challenge=challenge)
-    backer.save()
+    user = request.user   
+    if action == 'back':     
+        backer = Backing(user=user, challenge=challenge)
+        backer.save()
+    else:
+        backer = Backing.objects.filter(user=user, challenge=challenge)[0]
+        backer.delete()
 
 def challenge(request, challenge_id):
     context = get_base_context(request)

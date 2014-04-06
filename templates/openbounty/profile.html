@@ -47,7 +47,7 @@ Profile
           {% if backed_challenges %}
           {% for challenge in backed_challenges %}
           <div class="challenge">  
-            <h2 class="title">{{challenge.challenge.title}}</h2>
+            <a href="../bounty/{{challenge.challenge.id}}"><h2 class="title">{{challenge.challenge.title}}</h2></a>
             <div class="description"> {{challenge.challenge.challenge}}</div>
             <div class="expires"> {{challenge.challenge.expiration_date}}</div>
           </div>
@@ -61,7 +61,7 @@ Profile
           <ul>
             {% for challenge in started_challenges %}
             <div class="challenge">  
-              <h2 class="title">{{challenge.title}}</h2>
+            <a href="../bounty/{{challenge.id}}"><h2 class="title">{{challenge.title}}</h2></a>
               <div class="description"> {{challenge.challenge}}</div>
               <div class="expires"> {{challenge.expiration_date}}</div>
             </div>

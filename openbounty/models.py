@@ -7,7 +7,7 @@ from datetime import datetime
 
 # Create your models here.
 class Challenge(models.Model):
-    bounty = models.FloatField()
+    bounty = models.DecimalField(decimal_places=2,max_digits=500)
     title = models.CharField(max_length = 120)
     challenge = models.CharField(max_length = 2000)
     post_date = models.DateTimeField("Post Date", default=datetime.now)
@@ -19,7 +19,7 @@ class Challenge(models.Model):
     
 class BountyUser(AbstractUser):
     phone_number = models.CharField(max_length=15)
-
+    wallet = models.DecimalField(decimal_places=2,max_digits=500)
 
 class Backing(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
@@ -31,4 +31,3 @@ class Comment(models.Model):
     title = models.CharField(max_length = 120)
     comment = models.CharField(max_length = 2000)
     date_posted = models.DateTimeField("Date Posted", auto_now_add=True)
-    

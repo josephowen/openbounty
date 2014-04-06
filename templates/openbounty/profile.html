@@ -13,39 +13,64 @@ Profile
 {% endblock title %}
 
 {% block content %}   
-<div class="clearfix">
-  <ul class="profile">
-    <li>Name: {{ name }}</li>
-    <li>Email: {{ email }}</li>
-    <li>Phone: {{ phone }}</li>
-    <li>Wallet: ${{ wallet }}</li>
-    <li>
-      <form class="add-money" action="" method="post">{% csrf_token %}
-        {{ form.money }}       
-        <button type="submit" class="btn btn-default">Add Money</button>
-      </form>
-    </li>
-  </ul>
-</div>
-<div> 
-  <div class="challenges">
-    <ul class="nav nav-tabs" id="myTab">
-      <li class="active" ><a href="#backed" data-toggle="tab">Backed Challenges</a></li>
-      <li><a href="#started" data-toggle="tab">Challenges Started</a></li>
-    </ul>
-  </div>
-  <div class="tab-content">
-  <div class="tab-pane active" id="backed">
-      <div class="container">
-        {% if backed_challenges %}
-        {% for challenge in backed_challenges %}
-        <div class="challenge">  
-          <a href="../bounty/{{challenge.challenge.id}}"><h2 class="title">{{challenge.challenge.title}}</h2></a>
-          <div class="description"> {{challenge.challenge.challenge}}</div>
-          <div class="expires"> {{challenge.challenge.expiration_date}}</div>
+    <div class="clearfix">
+        <ul class="profile">
+            <li>Name: {{ name }}</li>
+            <li>Email: {{ email }}</li>
+            <li>Phone: {{ phone }}</li>
+            {% if venmo %}            
+                <li>Wallet: ${{ wallet }}</li>
+                <li>Venmo Balance: ${{ venmo }}</li>
+                <li>
+                    <form class="add-money" action="" method="post">{% csrf_token %}
+                        {{ form.money }}
+                    <button type="submit" name="add" class="btn btn-sm">Add Money</button>
+                    <button type="submit" name="minus" class="btn btn-sm">Subtract Money</button>
+                </li>
+            {% else %}            
+                <li>
+                    <a href="https://api.venmo.com/v1/oauth/authorize?client_id=1676&scope=make_payments%20access_profile%20access_balance">Connect to Venmo</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+    <div> 
+        <div class="challenges">
+            <ul class="nav nav-tabs" id="myTab">
+                    <li class="active" ><a href="#backed" data-toggle="tab">Backed Challenges</a></li>
+                    <li><a href="#started" data-toggle="tab">Challenges Started</a></li>
+            </ul>
         </div>
-        {% endfor %}
-        {% endif %}
+        <div class="tab-content">
+      		<div class="tab-pane" id="backed">
+                <div class="container">
+                {% if backed_challenges %}
+                    {% for challenge in backed_challenges %}
+                    <div class="challenge">  
+                        <h2 class="title">{{challenge.challenge.title}}</h2>
+                        <div class="description"> {{challenge.challenge.challenge}}</div>
+                        <div class="expires"> {{challenge.challenge.expiration_date}}</div>
+                	</div>
+                    {% endfor %}
+                {% endif %}
+                </div>
+            </div>
+      		<div class="tab-pane" id="started">
+                <div class="container">
+                {% if started_challenges %}
+                    <ul>
+                    {% for challenge in started_challenges %}
+                        <div class="challenge">  
+                            <h2 class="title">{{challenge.title}}</h2>
+                            <div class="description"> {{challenge.challenge}}</div>
+                            <div class="expires"> {{challenge.expiration_date}}</div>
+                        </div>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+                </div>
+            </div>
+        </div>
       </div>
     </div>
     <div class="tab-pane" id="started">

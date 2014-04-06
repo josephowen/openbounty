@@ -36,7 +36,7 @@ def create(request):
     form = ChallengeForm()
     if request.method == 'POST':
         form = ChallengeForm(request.POST)
-        if form.is_valid() and request.user.is_authenticated():
+        if form.is_valid() and request.user.is_authenticated() and request.user.wallet >= 1:
             bounty = 1
             title = form.cleaned_data['title']
             challenge = form.cleaned_data['challenge']
@@ -94,16 +94,19 @@ def back_challenge(request, challenge_id, action):
         if len(backers) == 0:
             backer = Backing(user=user, challenge=challenge)
             backer.save()
-        backer.save()
-        user.wallet -= 1
-        user.save()
+            challenge.bounty += 1
+            challenge.save()
+            user.wallet -= 1
+            user.save()
     elif action == 'unback':
         backers = Backing.objects.filter(user=user, challenge=challenge)
         if len(backers) == 1:
             backer = backers[0]
             backer.delete()
-        user.wallet += 1
-        user.save()
+            challenge.bounty -= 1
+            challenge.save()
+            user.wallet += 1
+            user.save()
 
 def challenge(request, challenge_id):
     context = get_base_context(request)

@@ -19,7 +19,7 @@ Profile
     <li>Email: {{ email }}</li>
     <li>Phone: {{ phone }}</li>
     {% if venmo %}            
-    <li>Wallet: ${{ wallet }}</li>
+    <li>Wallet: ${{ wallet }} (Committed: ${{ committed }})</li>
     <li>Venmo Balance: ${{ venmo }}</li>
     <li>
       <form class="add-money" action="" method="post">{% csrf_token %}

@@ -38,12 +38,12 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_comments',
     'openbounty',
     'south',
-    'django_comments',
 )
 
-COMMENTS_APP = 'threadedcomments'
+#COMMENTS_APP = 'comments'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

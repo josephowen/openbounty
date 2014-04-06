@@ -65,7 +65,7 @@ def view_challenges(request):
         try:
             all_backers = Backing.objects.filter(challenge=challenge)
             challenge_and_backers['backers'] = len(all_backers)
-            if Backing.objects.filter(user=request.user, challenge=challenge):
+            if request.user.is_authenticated() and Backing.objects.filter(user=request.user, challenge=challenge):
                  challenge_and_backers['backed'] = True
         except Backing.DoesNotExist:
             challenge_and_backers['backers']  = None

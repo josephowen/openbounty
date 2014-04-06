@@ -1,15 +1,15 @@
 {% extends "openbounty/base.html" %}
 {% block head %}
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script language="javascript" type="text/javascript">
-        $('#myTab a').click(function (e) {
-        e.preventDefault()
-        $(this).tab('show')
-        })
-    </script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+  $('#myTab a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  })
+</script>
 {% endblock head %}
 {% block title %}
- Profile
+Profile
 {% endblock title %}
 
 {% block content %}   
@@ -18,13 +18,20 @@
             <li>Name: {{ name }}</li>
             <li>Email: {{ email }}</li>
             <li>Phone: {{ phone }}</li>
-            <li>Wallet: ${{ wallet }}</li>
-            <li>
-            <form class="add-money" action="" method="post">{% csrf_token %}
-                {{ form.money }}       
-                <button type="submit" class="btn btn-default">Add Money</button>
-            </form>
-            </li>
+            {% if venmo %}            
+                <li>Wallet: ${{ wallet }}</li>
+                <li>Venmo Balance: ${{ venmo }}</li>
+                <li>
+                    <form class="add-money" action="" method="post">{% csrf_token %}
+                        {{ form.money }}
+                    <button type="submit" name="add" class="btn btn-sm">Add Money</button>
+                    <button type="submit" name="minus" class="btn btn-sm">Subtract Money</button>
+                </li>
+            {% else %}            
+                <li>
+                    <a href="https://api.venmo.com/v1/oauth/authorize?client_id=1676&scope=make_payments%20access_profile%20access_balance">Connect to Venmo</a>
+                </li>
+            {% endif %}
         </ul>
     </div>
     <div> 
@@ -64,5 +71,23 @@
                 </div>
             </div>
         </div>
+      </div>
     </div>
+    <div class="tab-pane" id="started">
+      <div class="container">
+        {% if started_challenges %}
+        <ul>
+          {% for challenge in started_challenges %}
+          <div class="challenge">  
+            <a href="../bounty/{{challenge.id}}"><h2 class="title">{{challenge.title}}</h2></a>
+            <div class="description"> {{challenge.challenge}}</div>
+            <div class="expires"> {{challenge.expiration_date}}</div>
+          </div>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}

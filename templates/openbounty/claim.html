@@ -1,5 +1,4 @@
 {% extends "openbounty/base.html" %}
-{% load comments %}
 
 {% block title %}
 Claim Bounty
@@ -10,18 +9,12 @@ Claim Bounty
 <h1>Submit Proof to Claim</h1>
 
 {% if user.is_authenticated %}
-    {% get_comment_form for challenge as form %}
-    <form action="{% comment_form_target %}" id="proof-form" method="POST">
+    <form action="" id="proof-form" method="POST">
     {% csrf_token %}
     <input class="form-control" placeholder="A link to your proof, such as an image or a video" id="id_url" type="url" name="url"></input>
     <br />
-    <textarea class="form-control" placeholder="Anything you want to say to explain what you did" id="id_comment" rows="10" name="comment" cols="40"></textarea>
+    <textarea class="form-control" placeholder="Anything you want to say to explain what you did" id="id_comment" rows="10" name="description" cols="40"></textarea>
     <br />
-    {{ form.honeypot }}
-    {{ form.content_type }}
-    {{ form.object_pk }}
-    {{ form.timestamp }}
-    {{ form.security_hash }}
     <input type="submit" class="btn btn-lg btn-default btn-primary" value="Post Proof" id="id_submit" />
     <input type="hidden" name="next" value="{{ request.path }}" />
     </form>

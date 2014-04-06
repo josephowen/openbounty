@@ -6,13 +6,13 @@ from openbounty.forms import ChallengeForm
 # Create your views here.
 
 def get_base_context(request):
-    links = [{"url":"index", "label":"Home"}, {"url":"view_challenges","label":"Challenges"},]
+    links = [{"url":"index", "label":"Home"}, {"url":"view_bounties","label":"Bounties"},]
     logged_in = request.user.is_authenticated()
     username = ''
     # Add conditional navbar links
     if logged_in:
         username = request.user.username
-        links.append({"url":"create_challenge","label":"Create a New Challenge"})
+        links.append({"url":"create_bounty","label":"Create a New Bounty"})
         links.append({"url":"profile", "label":"Account"})
         links.append({"url":"logout", "label":"Log out"})
     else:
@@ -50,7 +50,7 @@ def view_challenges(request):
         challengelist.append(challenge)
 
     context['challenges'] = challengelist
-    return render(request, 'openbounty/all_challenges.html', context)
+    return render(request, 'openbounty/list_challenges.html', context)
 
 def back_challenge(request, challenge_id):
     if not user.is_authenticated:

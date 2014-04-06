@@ -26,14 +26,14 @@ Unclaimed Bounties
 <div id="challenge-list">
 	{% for challenge in challenges %}
 	{% get_comment_count for challenge as comment_count %}
-	<div class="challenge panel panel-default clickableDiv" href="/challenge/{{ challenge.id }}">  
+	<div class="challenge panel panel-default clickableDiv" href="/bounty/{{ challenge.id }}">  
 		<div class="panel-body">
 			<div class="bounty">${{ challenge.bounty }}</div>
 			<div class="challenge-info">
 				<div class="expire-date">Expires {{ challenge.expiration_date }}</div>
-				<h4 class="title"><a href="/challenge/{{ challenge.id }}">{{ challenge.title }}</a><br>
+				<h4 class="title"><a href="/bounty/{{ challenge.id }}">{{ challenge.title }}</a><br>
 					<small>{{ challenge.challenge }}</small></h4>
-				<a class="comment-count" href="/challenge/{{ challenge.id }}">{{ comment_count }} Comment{% if comment_count != 1 %}s{% endif %}</a>
+				<a class="comment-count" href="/bounty/{{ challenge.id }}">{{ comment_count }} Comment{% if comment_count != 1 %}s{% endif %}</a>
 				<span class="gray">posted by</span> {{ challenge.user }}
 			</div>
 		</div>

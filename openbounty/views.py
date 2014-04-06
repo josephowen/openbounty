@@ -6,7 +6,7 @@ from openbounty.forms import ChallengeForm
 # Create your views here.
 
 def get_base_context(request):
-    links = [{"url":"index", "label":"Home"}, {"url":"view_challenges", "label":"Challenges"}]
+    links = [{"url":"index", "label":"Home"}, {"url":"view_challenges","label":"Challenges"},{"url":"create_challenge","label":"Create a New Challenge"},]
     logged_in = request.user.is_authenticated()
     username = ''
     # Add conditional navbar links

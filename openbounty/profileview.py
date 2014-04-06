@@ -16,7 +16,6 @@ def profile(request):
         context['wallet'] = request.user.wallet
         context['name'] = request.user.username        
         context['email'] = request.user.email
-        context['phone'] = request.user.phone_number
         try:        
             context['started_challenges'] = Challenge.objects.filter(user=user)
         except Challenge.DoesNotExist:

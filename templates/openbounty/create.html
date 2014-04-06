@@ -4,10 +4,29 @@
 {% endblock title %}
 
 {% block content %}
-    <div class="container">
-      <form id="create_challenge" action="" method="post">{% csrf_token %}
-      {{ form.as_p }}
-      <input type="submit" value="Submit" />
-      </form>
-    </div>
+    {% if user.is_authenticated %}
+        <div class="container">
+          <form id="create_challenge" action="" method="post">{% csrf_token %}
+          <div class="descriptions">
+            <ul>
+                <li>Title</li>
+                <li>Description</li>
+                <li>Bounty</li>
+                <li>Expiration Date</li>
+            </ul>
+          </div>
+          <div class="inputs">
+            <ul>
+                <li>{{ form.title }}</li>
+                <li>{{ form.challenge }}</li>
+                <li>{{ form.bounty }}</li>
+                <li>{{ form.expiration_date }}</li>
+            </ul>          
+          </div>
+          <input type="submit" value="Submit" />
+          </form>
+        </div>
+    {% else %}
+        <p>Please <a href="{% url 'login' %}">log in</a> to create a challenge.</p>
+{% endif %}
 {% endblock content %}

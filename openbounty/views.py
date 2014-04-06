@@ -36,9 +36,6 @@ def create(request):
             expiration_date = form.cleaned_data['expiration_date']
             challenge_object = Challenge.objects.create(user=request.user,bounty=bounty,title=title,challenge=challenge,expiration_date=expiration_date)     
             return HttpResponseRedirect('')     
-        elif not request.user.is_authenticated():
-            return HttpResponse("You need to login");
-
     context = get_base_context(request)
     context['form'] = form
     return render(request, 'openbounty/create.html', context)

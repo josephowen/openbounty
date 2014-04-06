@@ -26,8 +26,8 @@ Unclaimed Bounties
 <div id="challenge-list">
 	{% for challenge in challenges %}
 	{% get_comment_count for challenge as comment_count %}
-	<div class="challenge panel panel-default clickableDiv" href="/challenge/{{ challenge.id }}">  
-		<div class="panel-body">
+	<div class="panel panel-default clickableDiv" href="/challenge/{{ challenge.id }}">  
+		<div class="challenge panel-body">
 			<div class="bounty">${{ challenge.bounty }}</div>
 			<div class="challenge-info">
 				<div class="expire-date">Expires {{ challenge.expiration_date }}</div>

@@ -82,7 +82,7 @@ def back_challenge(request, challenge_id, action):
         redirect("index")
     challenge = Challenge.objects.get(id = challenge_id)
     user = request.user   
-    if action == 'back':
+    if action == 'back' and user.wallet >= 1:
         backers = Backing.objects.filter(user=user, challenge=challenge)  
         if len(backers) == 0:
             backer = Backing(user=user, challenge=challenge)
@@ -90,7 +90,7 @@ def back_challenge(request, challenge_id, action):
         backer.save()
         user.wallet -= 1
         user.save()
-    else:
+    elif action == 'unback':
         backers = Backing.objects.filter(user=user, challenge=challenge)
         if len(backers) == 1:
             backer = backers[0]

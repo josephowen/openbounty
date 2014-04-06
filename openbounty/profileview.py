@@ -52,8 +52,9 @@ def venmo(request, context):
                     if (user.wallet - money) >= 0:
                         user.wallet -= money
                         user.save()            
-        user.wallet = min(user.wallet, math.floor(float(balance)))
-        user.save()
+        if user.wallet:        
+            user.wallet = min(user.wallet, math.floor(float(balance)))
+            user.save()
     else:
         context['venmo'] = None
     return context

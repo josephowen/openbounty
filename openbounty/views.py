@@ -3,7 +3,7 @@ import json
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.serializers.json import DjangoJSONEncoder
-from openbounty.models import Challenge, BountyUser, Backing, Proof
+from openbounty.models import Challenge, BountyUser, Backing, Proof, ClaimVotes
 from openbounty.forms import ChallengeForm
 # Create your views here.
 
@@ -120,18 +120,30 @@ def back_challenge(request, challenge_id, action):
             user.save()
 
 def challenge(request, challenge_id):
-    if request.method == 'POST':
-        back_challenge(request, request.POST['challenge_id'], request.POST['action'])
     context = get_base_context(request)
     challenge = Challenge.objects.get(id = challenge_id)
     context['challenge'] = challenge
 
+    if request.method == 'POST':
+        if "vote" in request.POST:
+            claim_id = request.POST.get("vote", 0)
+            if claim_id:
+                claim = Proof(id=claim_id)
+                hasVoted = (len(ClaimVotes.objects.filter(user=request.user, claim=claim)) != 0)
+                if not hasVoted:
+                    claimvote = ClaimVotes(user=request.user, claim=claim)
+                    claimvote.save()
+                    claim.votes = claim.votes+1
+                    claim.save()
+        else:
+            back_challenge(request, request.POST['challenge_id'], request.POST['action'])
+
+            redirect(request.path)
+
     proofs = Proof.objects.filter(challenge=challenge)
     proof_list = []
     for proof in proofs:
-        url = proof.url
-        description = proof.description
-        proof_list.append({"url":url, "description":description})
+        proof_list.append(proof)
 
     context['claims'] = proof_list
 

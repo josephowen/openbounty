@@ -6,6 +6,10 @@ body { padding-top: 70px; }
 
 /* Make alert text readable */
 .alert { font-weight: 500; }
+/* And navbar text too */
+.navbar-nav > li > a {
+	font-weight: 400;
+}
 
 /* Login page CSS */
 .form-signin {
@@ -93,7 +97,8 @@ a.anchor {
 .gray { color: #999; }
 
 
-/* for profile page */
+/********************
+ * for profile page */
 ul.profile{
     list-style-type: none;
     float:left;
@@ -105,4 +110,25 @@ ul.profile{
 
 .challenge{
     margin-bottom:2%;
+}
+
+/*************************
+ * Challenge detail view *
+ *************************/
+#comment-list {	margin-bottom: 2em; }
+#comment-list .panel-body {
+	padding: 10px;
+}
+#comment-list .panel {
+	margin-bottom: 1em;
+}
+.comment-header .date {
+	text-align: right;
+}
+
+#id_comment {
+	resize: vertical;
+}
+#id_submit {
+	float: right;
 }

@@ -37,12 +37,12 @@ Profile
     <div> 
         <div class="challenges">
             <ul class="nav nav-tabs" id="myTab">
-                    <li class="active" ><a href="#backed" data-toggle="tab">Backed Challenges</a></li>
-                    <li><a href="#started" data-toggle="tab">Challenges Started</a></li>
+                    <li class="active" ><a href="#backed" data-toggle="tab">Backed Bounties</a></li>
+                    <li><a href="#started" data-toggle="tab">Bounties Started</a></li>
             </ul>
         </div>
         <div class="tab-content">
-      		<div class="tab-pane" id="backed">
+      		<div class="tab-pane active" id="backed">
                 <div class="container">
                 {% if backed_challenges %}
                     {% for challenge in backed_challenges %}
@@ -71,21 +71,6 @@ Profile
                 </div>
             </div>
         </div>
-      </div>
-    </div>
-    <div class="tab-pane" id="started">
-      <div class="container">
-        {% if started_challenges %}
-        <ul>
-          {% for challenge in started_challenges %}
-          <div class="challenge">  
-            <a href="../bounty/{{challenge.id}}"><h2 class="title">{{challenge.title}}</h2></a>
-            <div class="description"> {{challenge.challenge}}</div>
-            <div class="expires"> {{challenge.expiration_date}}</div>
-          </div>
-          {% endfor %}
-        </ul>
-        {% endif %}
       </div>
     </div>
   </div>

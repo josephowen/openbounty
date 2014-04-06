@@ -26,31 +26,38 @@ Unclaimed Bounties
 <div id="challenge-list">
 	{% for challenge in challenges %}
 	{% get_comment_count for challenge.challenge as comment_count %}
+  <a class="anchor" id="challenge_{{ challenge.challenge.id }}"></a>
 	<div class="challenge panel panel-default clickableDiv" href="/bounty/{{ challenge.challenge.id }}">  
 		<div class="panel-body">
 			<div class="bounty">${{ challenge.challenge.bounty }}</div>
 			<div class="challenge-info">
-				<div class="expire-date">Expires {{ challenge.challenge.expiration_date }}</div>
-				<h4 class="title"><a href="/bounty/{{ challenge.challenge.id }}">{{ challenge.challenge.title }}</a><br>
-					<small>{{ challenge.challenge.challenge }}</small></h4>
-          <a class="comment-count" href="/bounty/{{ challenge.challenge.id }}">{{ comment_count }} Comment{% if comment_count != 1 %}s{% endif %}</a>
-          <span>{{ challenge.backers }} Backer{% if challenge.backers != 1 %}s{% endif %}</span>
+				<div class="expire-date small">
+          <span class="gray">Expires</span> {{ challenge.challenge.expiration_date }}<br>
           <span class="gray">posted by</span> {{ challenge.challenge.user }}
-          <div class="back_challenge">
-            {% if not challenge.backed and challenge.challenge.user != user %}     
-            <form action="" method="post">{% csrf_token %}
-              <input type="hidden" name="challenge_id" value="{{ challenge.challenge.id }}"></input>
-              <input type="hidden" name="action" value="back"></input>
-              <button type="submit" class="btn btn-default">Back This!</button>
-            </form>
-          </div>
-          {% elif challenge.challenge.user != user %}
-          <form action="" method="post">{% csrf_token %}
-            <input type="hidden" name="challenge_id" value="{{ challenge.challenge.id }}"></input>
-            <input type="hidden" name="action" value="unback"></input>
-            <button type="submit" class="btn btn-default">Unback This!</button>
+        </div>
+
+        <h4 class="title">
+          <a href="/bounty/{{ challenge.challenge.id }}">{{ challenge.challenge.title }}</a><br>
+          <small>{{ challenge.challenge.challenge }}</small>
+        </h4>
+        <a class="comment-count" href="/bounty/{{ challenge.challenge.id }}">{{ comment_count }} Comment{% if comment_count != 1 %}s{% endif %}</a>
+
+        <span>{{ challenge.backers }} Backer{% if challenge.backers != 1 %}s{% endif %}</span>
+
+        {% if not challenge.backed and challenge.challenge.user != user %}     
+        <div class="back_challenge">
+          <form action="{{ request.path }}#challenge_{{ challenge.challenge.id }}" method="post">{% csrf_token %}
+            <input type="hidden" name="challenge_id" value="{{ challenge.challenge.id }}" />
+            <input type="hidden" name="action" value="back" />
+            <button type="submit" class="btn btn-default">Back This!</button>
           </form>
         </div>
+        {% elif challenge.challenge.user != user %}
+        <form action="{{ request.path }}#challenge_{{ challenge.challenge.id }}" method="post">{% csrf_token %}
+          <input type="hidden" name="challenge_id" value="{{ challenge.challenge.id }}" />
+          <input type="hidden" name="action" value="unback" />
+          <button type="submit" class="btn btn-default">Unback This!</button>
+        </form>
         {% endif %}
       </div>
     </div>

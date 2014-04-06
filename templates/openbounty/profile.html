@@ -1,15 +1,15 @@
 {% extends "openbounty/base.html" %}
 {% block head %}
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script language="javascript" type="text/javascript">
-        $('#myTab a').click(function (e) {
-        e.preventDefault()
-        $(this).tab('show')
-        })
-    </script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+  $('#myTab a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  })
+</script>
 {% endblock head %}
 {% block title %}
- Profile
+Profile
 {% endblock title %}
 
 {% block content %}   
@@ -71,5 +71,25 @@
                 </div>
             </div>
         </div>
+        {% endfor %}
+        {% endif %}
+      </div>
     </div>
+    <div class="tab-pane" id="started">
+      <div class="container">
+        {% if started_challenges %}
+        <ul>
+          {% for challenge in started_challenges %}
+          <div class="challenge">  
+            <a href="../bounty/{{challenge.id}}"><h2 class="title">{{challenge.title}}</h2></a>
+            <div class="description"> {{challenge.challenge}}</div>
+            <div class="expires"> {{challenge.expiration_date}}</div>
+          </div>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}

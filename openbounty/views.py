@@ -42,7 +42,9 @@ def create(request):
             challenge = form.cleaned_data['challenge']
             expiration_date = json.loads(request.session['expiration'])
             challenge_object = Challenge.objects.create(user=request.user,bounty=bounty,title=title,challenge=challenge,expiration_date=expiration_date)
-            return HttpResponseRedirect('')     
+            backer = Backing(user=request.user, challenge=challenge_object)
+            backer.save()
+            return redirect('view_bounties')
     context = get_base_context(request)
     exp_date = datetime.datetime.now() + datetime.timedelta(60)    
     json_exp_date = json.dumps(exp_date, cls=DjangoJSONEncoder)
@@ -81,13 +83,16 @@ def back_challenge(request, challenge_id, action):
     challenge = Challenge.objects.get(id = challenge_id)
     user = request.user   
     if action == 'back':     
-        backer = Backing(user=user, challenge=challenge)
+        if len(backers) == 0:
+            backer = Backing(user=user, challenge=challenge)
+            backer.save()
         backer.save()
         user.wallet -= 1
         user.save()
     else:
-        backer = Backing.objects.filter(user=user, challenge=challenge)[0]
-        backer.delete()
+        if len(backers) == 1:
+            backer = backers[0]
+            backer.delete()
         user.wallet += 1
         user.save()
 

@@ -26,6 +26,13 @@ h1 small { padding-left: 1em; }
 /* Redundant now. */
 /*#challenge-list { max-width: 900px; }*/
 
+a.anchor { 
+	display: block;
+	position: relative;
+	top: -70px;
+	visibility: hidden;}
+}
+
 .challenge {
 	height: auto;
 	vertical-align: middle;
@@ -44,7 +51,10 @@ h1 small { padding-left: 1em; }
 	display: inline-block;
 	vertical-align: middle;
 }
-.challenge .expire-date { float:right; }
+.challenge .expire-date { 
+	float:right; 
+	text-align: right;
+}
 .challenge .title { float:none; }
 .challenge h4 {
 	margin-top: 0em;
@@ -67,19 +77,17 @@ h1 small { padding-left: 1em; }
 
 
 /* Bounty creation  */
-#create_challenge .inputs {
-	margin-bottom: 1em;
-}
 #bounty-info {
 	width: 100%;
 }
-#bounty-info .pledge { 
-	width: 50%; 
+#bounty-info .pledge,
+#bounty-info .expiration { 
+	width: 49%; 
 	height: 100%;
 	text-align: center;
+	display: inline-block;
+	margin: 0.75em 0;
 }
-#
-
 
 /* mimicking the 'subtle' stuff */
 .gray { color: #999; }

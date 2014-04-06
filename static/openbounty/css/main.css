@@ -29,29 +29,17 @@ h1 small { padding-left: 1em; }
 }
 .challenge .bounty { 
 	width: 14%;
-	/*padding: 10px;*/
 	font-size: 2em;
 	line-height: 2em;
 	text-align: center;
 	display: inline-block;
 	vertical-align: middle;
-	/*display: table-cell;*/
-	/*height: 100%;*/
-	/*padding-bottom: 100%;
-	margin-bottom: -100%;
-    display: flex;
-    justify-content:center;
-    align-content:center;
-    flex-direction:column; /* colu*/mn | row */
 }
 .challenge .challenge-info { 
 	width: 85%;
-	/*margin-left: 110px;*/
 	padding-left: 10px;
 	display: inline-block;
 	vertical-align: middle;
-/*	padding-bottom: 100%;
-	margin-bottom: -100%;*/
 }
 .challenge .expire-date { float:right; }
 .challenge .title { float:none; }
@@ -75,3 +63,18 @@ h1 small { padding-left: 1em; }
 
 /* mimicking the 'subtle' stuff */
 .gray { color: #999; }
+
+
+/* for profile page */
+ul.profile{
+    list-style-type: none;
+    float:left;
+    height:100%;
+}
+.challenges, .tab-content {
+    /*float:right;*/
+}
+
+.challenge{
+    margin-bottom:2%;
+}

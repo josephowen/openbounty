@@ -6,11 +6,17 @@ from openbounty.forms import ChallengeForm, CommentForm
 # Create your views here.
 
 def get_base_context(request):
-    username = ''
+    links = [{"url":"index", "label":"Home"}, {"url":"view_challenges", "label":"Challenges"}]
     logged_in = request.user.is_authenticated()
+    username = ''
+    # Add conditional navbar links
     if logged_in:
         username = request.user.username
-    links = [{"url":"index", "label":"Home"}, {"url":"view_challenges", "label":"Challenges"}, {"url":"login", "label":"Log in"}, {"url":"register", "label":"Register"}, {"url":"logout", "label":"Log out"}]
+        links.append({"url":"logout", "label":"Log out"})
+    else:
+        links.append({"url":"register", "label":"Register"})
+        links.append({"url":"login", "label":"Log in"})
+
     context = {'request':request, 'navlinks':links, 'logged_in':logged_in, 'username':username}
     return context
 

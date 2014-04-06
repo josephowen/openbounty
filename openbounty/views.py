@@ -45,7 +45,8 @@ def view_challenges(request):
     context['contents'] = []
     for challenge in challenges:
         data = {}        
-        data['challenge'] = challenge       
+        data['challenge'] = challenge   
+        data['challenge'].bounty = int(data['challenge'].bounty)
         data['comments'] = len(Comment.objects.filter(challenge=challenge))
         context['contents'].append(data)
     context['form'] = form

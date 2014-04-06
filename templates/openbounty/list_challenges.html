@@ -25,9 +25,9 @@ Unclaimed Bounties
 {# eventualy we'd want to like maybe filter them at all #}
 <div id="challenge-list">
 	{% for challenge in challenges %}
-	{% get_comment_count for challenge.challenge as comment_count %}
-  <a class="anchor" id="challenge_{{ challenge.challenge.id }}"></a>
+	{% get_comment_count for challenge.challenge as comment_count %}  
 	<div class="challenge panel panel-default clickableDiv" href="/bounty/{{ challenge.challenge.id }}">  
+    <a class="anchor" id="challenge_{{ challenge.challenge.id }}"></a>
 		<div class="panel-body">
 			<div class="bounty">${{ challenge.challenge.bounty }}</div>
 			<div class="challenge-info">

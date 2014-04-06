@@ -2,6 +2,8 @@
 /* Prevent the navbar from overlaying the content. */
 body { padding-top: 70px; }
 
+#content { max-width: 900px; }
+
 /* Make alert text readable */
 .alert { font-weight: 500; }
 
@@ -21,7 +23,8 @@ body { padding-top: 70px; }
  ***********************/
 h1 small { padding-left: 1em; }
 
-#challenge-list { max-width: 900px; }
+/* Redundant now. */
+/*#challenge-list { max-width: 900px; }*/
 
 .challenge {
 	height: auto;
@@ -70,7 +73,24 @@ h1 small { padding-left: 1em; }
 .clickableDiv:nth-child(even) { background-color: #f3f3f3; }
 .clickableDiv:hover { background-color: #d9edf7; }
 
+
+/* For the commenting page */
 #id_honeypot { display: none; }
+
+
+/* Bounty creation  */
+#create_challenge .inputs {
+	margin-bottom: 1em;
+}
+#bounty-info {
+	width: 100%;
+}
+#bounty-info .pledge { 
+	width: 50%; 
+	height: 100%;
+	text-align: center;
+}
+#
 
 
 /* mimicking the 'subtle' stuff */

@@ -1,6 +1,8 @@
 import datetime
+import json
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core.serializers.json import DjangoJSONEncoder
 from openbounty.models import Challenge, BountyUser, Backing
 from openbounty.forms import ChallengeForm
 # Create your views here.
@@ -26,18 +28,26 @@ def index(request):
     context = get_base_context(request)
     return render(request, 'openbounty/index.html', context)
 
+DATE_FORMAT = '%A, %B %d'
+def dateToString(date):
+    return datetime.datetime.strftime(date, DATE_FORMAT)
+
 def create(request):
     form = ChallengeForm()
     if request.method == 'POST':
         form = ChallengeForm(request.POST)
         if form.is_valid() and request.user.is_authenticated():
-            bounty = form.cleaned_data['bounty']
+            bounty = 1
             title = form.cleaned_data['title']
             challenge = form.cleaned_data['challenge']
-            expiration_date = form.cleaned_data['expiration_date']
-            challenge_object = Challenge.objects.create(user=request.user,bounty=bounty,title=title,challenge=challenge,expiration_date=expiration_date)     
+            expiration_date = json.loads(request.session['expiration'])
+            challenge_object = Challenge.objects.create(user=request.user,bounty=bounty,title=title,challenge=challenge,expiration_date=expiration_date)
             return HttpResponseRedirect('')     
     context = get_base_context(request)
+    exp_date = datetime.datetime.now() + datetime.timedelta(60)    
+    json_exp_date = json.dumps(exp_date, cls=DjangoJSONEncoder)
+    request.session['expiration'] = json_exp_date
+    context['expiration'] = dateToString(exp_date)
     context['form'] = form
     return render(request, 'openbounty/create.html', context)
 

@@ -1,32 +1,35 @@
 {% extends "openbounty/base.html" %}
 {% block title %}
- Challenges
+Create a Challege
 {% endblock title %}
 
 {% block content %}
-    {% if user.is_authenticated %}
-        <div class="container">
-          <form id="create_challenge" action="" method="post">{% csrf_token %}
-          <div class="descriptions">
-            <ul>
-                <li>Title</li>
-                <li>Description</li>
-                <li>Bounty</li>
-                <li>Expiration Date</li>
-            </ul>
-          </div>
-          <div class="inputs">
-            <ul>
-                <li>{{ form.title }}</li>
-                <li>{{ form.challenge }}</li>
-                <li>{{ form.bounty }}</li>
-                <li>{{ form.expiration_date }}</li>
-            </ul>          
-          </div>
-          <input type="submit" value="Submit" />
-          </form>
-        </div>
-    {% else %}
-        <p>Please <a href="{% url 'login' %}">log in</a> to create a challenge.</p>
+{% if user.is_authenticated %}
+<h1>Start a Bounty</h1>
+<form id="create_challenge" action="" method="post">
+  {% csrf_token %}
+  <div class="inputs">
+    <div class="input-group">
+      <span class="input-group-addon">Title</span>
+      <input required type="text" class="form-control" name="title" placeholder="Briefly describe what you'd like to see!" size="140" value="{{ title }}" />
+    </div>
+    <textarea class="form-control" name="challenge" placeholder="Give a longer description of your idea." value="{{ challenge }}" rows="6" ></textarea>
+
+    {# Hidden fields so that the form validates #}
+    <input type="hidden" name="bounty" value="1" />
+    <input type="hidden" name="expiration_date" value="12/23/2008" />
+
+  </div>
+  
+  <div id="bounty-info">
+
+    <h2 class="pledge"><small>Pledging</small> $1</h2>
+    <h2 class="expiration"><small>Expires on</small> {{ expiration }}</h2>
+  </div>
+
+  <button type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
+</form>
+{% else %}
+<p>Please <a href="{% url 'login' %}">log in</a> to create a challenge.</p>
 {% endif %}
 {% endblock content %}

@@ -47,7 +47,7 @@ def view_challenges(request):
     context = get_base_context(request)
     challenges = Challenge.objects.all()
     challengelist = []
-    for challenge in challenges:
+    for challenge in sorted(challenges, key=lambda c: c.bounty, reverse=True):
         challenge.bounty = int(challenge.bounty)
         challengelist.append(challenge)
 

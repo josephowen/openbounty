@@ -19,7 +19,7 @@ Claim Bounty
     <input type="hidden" name="next" value="{{ request.path }}" />
     </form>
 {% else %}
-    <p>Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+    <p>Please <a href="{% url 'login' %}">log in</a> submit a claim.</p>
 {% endif %}
 
 {% endblock content %}

@@ -55,6 +55,8 @@ def create(request):
 
 def view_challenges(request):
     if request.method == 'POST':
+        if not request.user.is_authenticated():
+            return redirect("login")
         back_challenge(request, request.POST['challenge_id'], request.POST['action'])
     context = get_base_context(request)
     challenges = Challenge.objects.all()
@@ -78,6 +80,8 @@ def view_challenges(request):
     return render(request, 'openbounty/list_challenges.html', context)
 
 def claim(request, challenge_id):
+    if not request.user.is_authenticated():
+        return redirect("login")
     context = get_base_context(request)
     challenge = Challenge.objects.get(id=challenge_id)
     context['challenge'] = challenge
@@ -96,8 +100,8 @@ def claim(request, challenge_id):
 
 
 def back_challenge(request, challenge_id, action):
-    if not request.user.is_authenticated:
-        redirect("index")
+    if not request.user.is_authenticated():
+        return redirect("login")
     challenge = Challenge.objects.get(id = challenge_id)
     user = request.user   
     if action == 'back' and user.wallet >= 1:
@@ -125,17 +129,19 @@ def challenge(request, challenge_id):
     context['challenge'] = challenge
 
     if request.method == 'POST':
+        if not request.user.is_authenticated():
+            return redirect("login")
         if "vote" in request.POST:
-            print "vote"
+            # print "vote"
             claim_id = request.POST.get("vote", 0)
             if claim_id:
-                print "claim_id"
+                # print "claim_id"
                 claim = Proof.objects.get(id=claim_id)
-                if request.user.is_authenticated() and len(ClaimVotes.objects.filter(user=request.user, claim=claim)) != 0:
-                    print "hasn't voted"
+                if request.user.is_authenticated() and len(ClaimVotes.objects.filter(user=request.user, claim=claim)) == 0:
+                    # print "hasn't voted"
                     claimvote = ClaimVotes(user=request.user, claim=claim)
                     claimvote.save()
-                    print claim
+                    # print claim
                     claim.votes = claim.votes+1
                     claim.save()
         else:

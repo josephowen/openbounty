@@ -75,6 +75,10 @@ a.anchor {
 .clickableDiv:nth-child(even) { background-color: #f3f3f3; }
 .clickableDiv:hover { background-color: #d9edf7; }
 
+span.backed {
+	background-color: #DFF0D8;
+}
+
 
 /* For the commenting page */
 #id_honeypot { display: none; }

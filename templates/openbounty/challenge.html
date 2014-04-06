@@ -20,8 +20,36 @@ Challenge
 	</form>
 </div>
 
+{% comment %}
 {% render_comment_list for challenge %}
 {% render_comment_form for challenge %}
+{% endcomment %}
+
+{% get_comment_list for challenge as list %}
+
+{% for comment in list %}
+    {{ comment.name }}
+    <br />
+    {{ comment.comment }}
+    <br />
+    <br />
+{% endfor %}
+
+{% if user.is_authenticated %}
+    {% get_comment_form for challenge as form %}
+    <form action="{% comment_form_target %}" method="POST">
+    {% csrf_token %}
+    {{ form.comment }}
+    {{ form.honeypot }}
+    {{ form.content_type }}
+    {{ form.object_pk }}
+    {{ form.timestamp }}
+    {{ form.security_hash }}
+    <input type="submit" value="Add comment" id="id_submit" />
+    </form>
+{% else %}
+    <p>Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+{% endif %}
 
 </div>
 {% endblock content %}

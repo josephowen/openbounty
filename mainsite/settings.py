@@ -39,7 +39,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'openbounty',
-    #'django_comments',
     'django.contrib.comments',
     'south',
 )

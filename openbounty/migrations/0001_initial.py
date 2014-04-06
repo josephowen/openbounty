@@ -34,9 +34,8 @@ class Migration(SchemaMigration):
             ('is_staff', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('is_active', self.gf('django.db.models.fields.BooleanField')(default=True)),
             ('date_joined', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('phone_number', self.gf('django.db.models.fields.CharField')(max_length=15, blank=True)),
             ('wallet', self.gf('django.db.models.fields.DecimalField')(default=0, max_digits=500, decimal_places=2)),
-            ('access_token', self.gf('django.db.models.fields.CharField')(default=None, max_length=100, blank=True)),
+            ('access_token', self.gf('django.db.models.fields.CharField')(default='', max_length=100, blank=True)),
             ('venmo', self.gf('django.db.models.fields.CharField')(default='', max_length=60, blank=True)),
         ))
         db.send_create_signal(u'openbounty', ['BountyUser'])
@@ -140,7 +139,7 @@ class Migration(SchemaMigration):
         },
         u'openbounty.bountyuser': {
             'Meta': {'object_name': 'BountyUser'},
-            'access_token': ('django.db.models.fields.CharField', [], {'default': 'None', 'max_length': '100', 'blank': 'True'}),
+            'access_token': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '100', 'blank': 'True'}),
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
@@ -152,7 +151,6 @@ class Migration(SchemaMigration):
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'phone_number': ('django.db.models.fields.CharField', [], {'max_length': '15', 'blank': 'True'}),
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'}),
             'venmo': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '60', 'blank': 'True'}),

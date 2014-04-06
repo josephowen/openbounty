@@ -20,7 +20,7 @@ class Challenge(models.Model):
     
 class BountyUser(AbstractUser):
     wallet = models.DecimalField(default=0,decimal_places=2,max_digits=500)
-    access_token = models.CharField(max_length = 100, blank=True, default=None)
+    access_token = models.CharField(max_length = 100, blank=True, default="")
     venmo = models.CharField(max_length = 60, blank=True, default="")
 
 class Backing(models.Model):

@@ -36,7 +36,7 @@ def create(request):
     form = ChallengeForm()
     if request.method == 'POST':
         form = ChallengeForm(request.POST)
-        if form.is_valid() and request.user.is_authenticated() and request.user.wallet >= 1:
+        if form.is_valid() and request.user.is_authenticated():
             bounty = 1
             title = form.cleaned_data['title']
             challenge = form.cleaned_data['challenge']
@@ -44,7 +44,7 @@ def create(request):
             challenge_object = Challenge.objects.create(user=request.user,bounty=bounty,title=title,challenge=challenge,expiration_date=expiration_date)
             backer = Backing(user=request.user, challenge=challenge_object)
             backer.save()
-            return redirect('view_bounties')
+            return redirect('bounty', challenge_object.id)
     context = get_base_context(request)
     exp_date = datetime.datetime.now() + datetime.timedelta(60)    
     json_exp_date = json.dumps(exp_date, cls=DjangoJSONEncoder)

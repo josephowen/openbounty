@@ -9,7 +9,7 @@ Challenge
 <div class="challenge">  
 	<h1 class="title">{{challenge.title}}</h1>
 	<div class="description"> {{challenge.challenge}}</div>
-	<div class="expires"> {{challenge.expiration_date}}</div>
+	<div class="expires"><span class="gray">Expires on </span>{{challenge.expiration_date}}</div>
 </div>
 {% if not backed and challenge.user != request.user %}     
         <div class="back_challenge">

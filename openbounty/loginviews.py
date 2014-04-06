@@ -10,7 +10,7 @@ from openbounty.views import get_base_context
 
 def register(request):
     errors = []
-    username = email = phone = first = last = password = reenterpassword = ''
+    username = email = first = last = password = reenterpassword = ''
     next = request.GET.get('next', '/')
     
     context = get_base_context(request)
@@ -20,7 +20,6 @@ def register(request):
         email = request.POST.get('email')
         first = request.POST.get('first')
         last = request.POST.get('last')
-        phone = request.POST.get('phone')
         password = request.POST.get('password')
         reenterpassword = request.POST.get('reenterpassword')
         next = request.POST.get('next')
@@ -54,7 +53,7 @@ def register(request):
             
         if not failed:
             print username
-            user = get_user_model().objects.create_user(username=username, first_name=first, last_name=last, email=email, phone_number=phone, password=password)
+            user = get_user_model().objects.create_user(username=username, first_name=first, last_name=last, email=email, password=password)
             user = authenticate(username=username, password=password)
             if user is not None:
                 if user.is_active:

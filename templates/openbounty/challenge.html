@@ -39,6 +39,7 @@ Challenge
     {{ form.timestamp }}
     {{ form.security_hash }}
     <input type="submit" value="Add comment" id="id_submit" />
+    <input type="hidden" name="next" value="{{ request.path }}" />
     </form>
 {% else %}
     <p>Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>

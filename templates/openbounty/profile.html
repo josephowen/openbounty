@@ -12,9 +12,13 @@
 Profile
 {% endblock title %}
 
-{% block content %}   
+{% block content %}
+ 
 <div class="clearfix">
   <ul class="profile">
+    {% if error %}    
+    <li><div class="alert alert-danger">{{ error }}</div></li>
+    {% endif %}    
     <li>Name: {{ name }}</li>
     <li>Email: {{ email }}</li>
     <li>Phone: {{ phone }}</li>
@@ -58,7 +62,6 @@ Profile
       <div class="tab-pane" id="started">
         <div class="container">
           {% if started_challenges %}
-          <ul>
             {% for challenge in started_challenges %}
             <div class="challenge">  
             <a href="../bounty/{{challenge.id}}"><h2 class="title">{{challenge.title}}</h2></a>
@@ -66,7 +69,6 @@ Profile
               <div class="expires"> {{challenge.expiration_date}}</div>
             </div>
             {% endfor %}
-          </ul>
           {% endif %}
         </div>
       </div>

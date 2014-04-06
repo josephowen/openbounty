@@ -51,10 +51,14 @@ def venmo(request, context):
                     if int(user.wallet + money < float(balance)):
                         user.wallet += money
                         user.save()
+                    else:
+                        context['error'] = "You don't have enough money in venmo"
                 else:
                     if (user.wallet - money) >= 0:
                         user.wallet -= money
-                        user.save()            
+                        user.save()
+                    else:
+                        context['error'] = "You don't have enough money in your wallet"
         if user.wallet:        
             user.wallet = min(user.wallet, math.floor(float(balance)))
             user.save()

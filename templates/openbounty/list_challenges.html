@@ -1,0 +1,61 @@
+{% extends "openbounty/base.html" %}
+{% load comments %}
+
+{% block title %}
+Unclaimed Bounties
+{% endblock title %}
+
+{% block head %}
+<script language="javascript" type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".clickableDiv").click(function() {
+			window.document.location = $(this).attr("href");
+		}).hover(function() {
+			$(this).toggleClass('hover');
+		});
+	});
+</script>
+{% endblock head %}
+
+{% block content %}
+
+<h1>Unclaimed Bounties <small>Support your favorites!</small></h1>
+
+{# eventualy we'd want to like maybe filter them at all #}
+<div id="challenge-list">
+	{% for challenge in challenges %}
+	{% get_comment_count for challenge.challenge as comment_count %}
+	<div class="challenge panel panel-default clickableDiv" href="/bounty/{{ challenge.challenge.id }}">  
+		<div class="panel-body">
+			<div class="bounty">${{ challenge.challenge.bounty }}</div>
+			<div class="challenge-info">
+				<div class="expire-date">Expires {{ challenge.challenge.expiration_date }}</div>
+				<h4 class="title"><a href="/bounty/{{ challenge.challenge.id }}">{{ challenge.challenge.title }}</a><br>
+					<small>{{ challenge.challenge.challenge }}</small></h4>
+				<a class="comment-count" href="/bounty/{{ challenge.challenge.id }}">{{ comment_count }} Comment{% if comment_count != 1 %}s{% endif %}</a>
+                <span>{{ challenge.backers }} Backer{% if challenge.backers != 1 %}s{% endif %}</span>
+				<span class="gray">posted by</span> {{ challenge.challenge.user }}
+                 <div class="back_challenge">
+                {% if not challenge.backed and challenge.challenge.user != user %}     
+                    <form action="" method="post">{% csrf_token %}
+                            <input type="hidden" name="challenge_id" value="{{ challenge.challenge.id }}"></input>
+                            <input type="hidden" name="action" value="back"></input>
+                            <button type="submit" class="btn btn-default">Back This!</button>
+                         </form>
+                     </div>
+                {% elif challenge.challenge.user != user %}
+                    <form action="" method="post">{% csrf_token %}
+                            <input type="hidden" name="challenge_id" value="{{ challenge.challenge.id }}"></input>
+                            <input type="hidden" name="action" value="unback"></input>
+                            <button type="submit" class="btn btn-default">Unback This!</button>
+                         </form>
+                     </div>
+                {% endif %}
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+{% endblock content %}

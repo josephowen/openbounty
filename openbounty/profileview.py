@@ -17,9 +17,12 @@ def profile(request):
         context['name'] = request.user.username        
         context['email'] = request.user.email
         context['phone'] = request.user.phone_number
-        context['started_challenges'] = Challenge.objects.filter(user=request.user)
+        try:        
+            context['started_challenges'] = Challenge.objects.filter(user=request.user)
+        except Challenge.DoesNotExist:
+            context['backed_challenges']  = None        
         try:
-            context['backed_challenges'] = Backing.objects.get(user=request.user)
+            context['backed_challenges'] = Backing.objects.filter(user=request.user)
         except Backing.DoesNotExist:
             context['backed_challenges']  = None
         

@@ -7,7 +7,6 @@
         $(this).tab('show')
         })
     </script>
-    <link type="text/css" href="/static/openbounty/css/profile.css" rel="stylesheet">
 {% endblock head %}
 {% block title %}
  Profile
@@ -39,11 +38,13 @@
       		<div class="tab-pane" id="backed">
                 <div class="container">
                 {% if backed_challenges %}
-                    <ul>
                     {% for challenge in backed_challenges %}
-                        {{ challenge }}    
+                    <div class="challenge">  
+                        <h2 class="title">{{challenge.challenge.title}}</h2>
+                        <div class="description"> {{challenge.challenge.challenge}}</div>
+                        <div class="expires"> {{challenge.challenge.expiration_date}}</div>
+                	</div>
                     {% endfor %}
-                    </ul>
                 {% endif %}
                 </div>
             </div>

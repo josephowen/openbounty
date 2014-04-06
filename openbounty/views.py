@@ -8,13 +8,13 @@ from openbounty.forms import ChallengeForm
 # Create your views here.
 
 def get_base_context(request):
-    links = [{"url":"index", "label":"Home"}, {"url":"view_challenges","label":"Challenges"},]
+    links = [{"url":"index", "label":"Home"}, {"url":"view_bounties","label":"Bounties"},]
     logged_in = request.user.is_authenticated()
     username = ''
     # Add conditional navbar links
     if logged_in:
         username = request.user.username
-        links.append({"url":"create_challenge","label":"Create a New Challenge"})
+        links.append({"url":"create_bounty","label":"Create a New Bounty"})
         links.append({"url":"profile", "label":"Account"})
         links.append({"url":"logout", "label":"Log out"})
     else:
@@ -52,23 +52,40 @@ def create(request):
     return render(request, 'openbounty/create.html', context)
 
 def view_challenges(request):
+    if request.method == 'POST':
+        back_challenge(request, request.POST['challenge_id'], request.POST['action'])
     context = get_base_context(request)
     challenges = Challenge.objects.all()
     challengelist = []
     for challenge in sorted(challenges, key=lambda c: c.bounty, reverse=True):
+        challenge_and_backers = {}
+        challenge_and_backers['challenge'] = challenge
+        try:
+            all_backers = Backing.objects.filter(challenge=challenge)
+            challenge_and_backers['backers'] = len(all_backers)
+            if Backing.objects.filter(user=request.user, challenge=challenge):
+                 challenge_and_backers['backed'] = True
+        except Backing.DoesNotExist:
+            challenge_and_backers['backers']  = None
+            challenge_and_backers['backed'] = False
+        
         challenge.bounty = int(challenge.bounty)
-        challengelist.append(challenge)
-
+        challengelist.append(challenge_and_backers)
+        
     context['challenges'] = challengelist
-    return render(request, 'openbounty/all_challenges.html', context)
+    return render(request, 'openbounty/list_challenges.html', context)
 
-def back_challenge(request, challenge_id):
-    if not user.is_authenticated:
+def back_challenge(request, challenge_id, action):
+    if not request.user.is_authenticated:
         redirect("index")
     challenge = Challenge.objects.get(id = challenge_id)
-    user = request.user
-    backer = Backing(user=user, challenge=challenge)
-    backer.save()
+    user = request.user   
+    if action == 'back':     
+        backer = Backing(user=user, challenge=challenge)
+        backer.save()
+    else:
+        backer = Backing.objects.filter(user=user, challenge=challenge)[0]
+        backer.delete()
 
 def challenge(request, challenge_id):
     context = get_base_context(request)

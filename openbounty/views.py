@@ -147,7 +147,7 @@ def challenge(request, challenge_id):
     proofs = Proof.objects.filter(challenge=challenge)
     proof_list = []
     for proof in proofs:
-        is_me = (len(ClaimVotes.objects.filter(user=request.user, claim=proof)) != 0))
+        is_me = (len(ClaimVotes.objects.filter(user=request.user, claim=proof)) != 0)
         proof_list.append({"proof":proof, "me":is_me})
 
     context['claims'] = proof_list

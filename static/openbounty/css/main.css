@@ -76,7 +76,7 @@ a.anchor {
 .clickableDiv:hover { background-color: #d9edf7; }
 
 span.backed,
-span.voted {
+#claim-list span.vote.voted {
 	background-color: #DFF0D8;
 }
 

@@ -33,7 +33,7 @@ Unclaimed Bounties
 				<div class="expire-date">Expires {{ challenge.expiration_date }}</div>
 				<h4 class="title"><a href="/challenge/{{ challenge.id }}">{{ challenge.title }}</a><br>
 					<small>{{ challenge.challenge }}</small></h4>
-				<a class="comment-count" href="/challenge/{{ challenge.id }}">{{ comment_count }} Comments</a>
+				<a class="comment-count" href="/challenge/{{ challenge.id }}">{{ comment_count }} Comment{% if comment_count != 1 %}s{% endif %}</a>
 				<span class="gray">posted by</span> {{ challenge.user }}
 			</div>
 		</div>

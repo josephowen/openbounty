@@ -66,14 +66,9 @@ h1 small { padding-left: 1em; }
 	display: block;
 	float: right;
 }
-
-.clickableDiv {
-	cursor:pointer;
-}
-
-.clickableDiv:hover {
-	background-color: #d9edf7;
-}
+.clickableDiv {	cursor:pointer; }
+.clickableDiv:nth-child(even) { background-color: #f3f3f3; }
+.clickableDiv:hover { background-color: #d9edf7; }
 
 #id_honeypot { display: none; }
 

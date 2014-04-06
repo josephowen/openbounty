@@ -1,0 +1,32 @@
+{% extends "openbounty/base.html" %}
+{% load comments %}
+
+{% block title %}
+Claim Bounty
+{% endblock title %}
+
+{% block content %}
+
+<h1>Submit Proof to Claim</h1>
+
+{% if user.is_authenticated %}
+    {% get_comment_form for challenge as form %}
+    <form action="{% comment_form_target %}" method="POST">
+    {% csrf_token %}
+    <input id="id_url" type="url" name="url"></input>
+    <br />
+    <textarea id="id_comment" rows="10" name="comment" cols="40"></textarea>
+    <br />
+    {{ form.honeypot }}
+    {{ form.content_type }}
+    {{ form.object_pk }}
+    {{ form.timestamp }}
+    {{ form.security_hash }}
+    <input type="submit" value="Post Proof" id="id_submit" />
+    <input type="hidden" name="next" value="{{ request.path }}" />
+    </form>
+{% else %}
+    <p>Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+{% endif %}
+
+{% endblock content %}

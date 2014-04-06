@@ -1,6 +1,6 @@
 import datetime
 import json
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.serializers.json import DjangoJSONEncoder
 from openbounty.models import Challenge, BountyUser, Backing
@@ -76,6 +76,13 @@ def view_challenges(request):
         
     context['challenges'] = challengelist
     return render(request, 'openbounty/list_challenges.html', context)
+
+def claim(request, challenge_id):
+    context = get_base_context(request)
+    challenge = Challenge.objects.get(id=challenge_id)
+    context['challenge'] = challenge
+    return render(request, 'openbounty/claim.html', context)
+
 
 def back_challenge(request, challenge_id, action):
     if not request.user.is_authenticated:

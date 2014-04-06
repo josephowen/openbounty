@@ -125,6 +125,16 @@ def challenge(request, challenge_id):
     context = get_base_context(request)
     challenge = Challenge.objects.get(id = challenge_id)
     context['challenge'] = challenge
+
+    proofs = Proof.objects.filter(challenge=challenge)
+    proof_list = []
+    for proof in proofs:
+        url = proof.url
+        description = proof.description
+        proof_list.append({"url":url, "description":description})
+
+    context['claims'] = proof_list
+
     if Backing.objects.filter(user=request.user, challenge=challenge):    
         context['backed'] = True
     else:

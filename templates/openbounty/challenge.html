@@ -11,14 +11,6 @@ Challenge
     <div class="description"> {{challenge.challenge}}</div>
     <div class="expires"> {{challenge.expiration_date}}</div>
 </div>
-<div class="post_comment">
-	<form id="challenge_id" action="" method="post">{% csrf_token %}				
-	<input type="hidden" name="challenge_id" value="{{ content.challenge.id }}">				
-	<div class="title">Title {{form.title}}</div>
-    <div class="content">Content {{form.comment}}</div>
-	<input type="submit" value="Submit" />
-	</form>
-</div>
 
 {% render_comment_list for challenge %}
 {% render_comment_form for challenge %}

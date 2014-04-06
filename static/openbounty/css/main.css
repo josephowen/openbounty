@@ -139,6 +139,9 @@ ul.profile{
 	margin-bottom: 2em; 
 }
 
+#claim-list .panel-body {
+	padding: 0;
+}
 #claim-list .input-group {
 	display: inline-block;
 	width: auto;
@@ -152,6 +155,7 @@ ul.profile{
 }
 #claim-list .claim-content {
 	display: inline-block;
+	padding: 15px;
 }
 
 /*************************

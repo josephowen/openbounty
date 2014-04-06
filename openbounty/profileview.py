@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from openbounty.models import Challenge, BountyUser, Backing
+from openbounty.views import get_base_context
 
 def profile(request):
     if request.user.is_authenticated():
-        context = {}
+        context = get_base_context(request)
         context['wallet'] = request.user.wallet
         context['name'] = request.user.username        
         context['email'] = request.user.email

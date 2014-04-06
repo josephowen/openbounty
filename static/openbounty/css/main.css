@@ -137,6 +137,12 @@ ul.profile{
 	float: right;
 }
 
+#claim-list span.vote {
+	background-color: #F7F7F7;
+	color: #444;
+	/*width: 30px;*/
+}
+
 /*************************
  * Proof submission view *
  *************************/

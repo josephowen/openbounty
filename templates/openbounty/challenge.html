@@ -38,14 +38,32 @@ Challenge
 {% endcomment %}
 
 <h2>Claims</h2>
-{% for claim in claims %}
-<div>
-	<a href="{{ claim.url }}">{{ claim.url }}</a>
+<div id="claim-list">
+	{% for claim in claims %}
+
+	<div class="panel panel-default">
+		<div class="panel-body">
+
+			<div class="input-group">
+				<span class="vote input-group-addon">Votes: {{ claim.votes }}</span>
+				<span class="input-group-btn">
+					<form>
+						<input type="hidden" name="vote" value="{{ claim.id }}" />
+						<button type="submit" class="btn btn-default">Vote</button>
+					</form>
+				</span>
+			</div>
+			<div>
+				<a href="{{ claim.url }}">{{ claim.url }}</a>
+			</div>
+			<div>
+				{{ claim.description }}
+			</div>
+		</div>
+	</div>
+
+	{% endfor %}
 </div>
-<div>
-	{{ claim.description }}
-</div>
-{% endfor %}
 
 {% get_comment_list for challenge as list %}
 

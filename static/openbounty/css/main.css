@@ -132,3 +132,11 @@ ul.profile{
 #id_submit {
 	float: right;
 }
+
+/*************************
+ * Proof submission view *
+ *************************/
+#proof-form #id_submit {
+	width:100%;
+	float:none;
+}

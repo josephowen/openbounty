@@ -40,9 +40,9 @@
                 {% if backed_challenges %}
                     {% for challenge in backed_challenges %}
                     <div class="challenge">  
-                        <h2 class="title">{{challenge.title}}</h2>
-                        <div class="description"> {{challenge.challenge}}</div>
-                        <div class="expires"> {{challenge.expiration_date}}</div>
+                        <h2 class="title">{{challenge.challenge.title}}</h2>
+                        <div class="description"> {{challenge.challenge.challenge}}</div>
+                        <div class="expires"> {{challenge.challenge.expiration_date}}</div>
                 	</div>
                     {% endfor %}
                 {% endif %}

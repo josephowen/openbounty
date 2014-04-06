@@ -7,6 +7,8 @@ from openbounty.models import Challenge, BountyUser, Backing, Proof, ClaimVotes
 from openbounty.forms import ChallengeForm
 # Create your views here.
 
+EXPIRE_DAYS = 7
+
 def get_base_context(request):
     links = [{"url":"index", "label":"Home"}, {"url":"view_bounties","label":"Bounties"},]
     logged_in = request.user.is_authenticated()
@@ -46,7 +48,7 @@ def create(request):
             backer.save()
             return redirect('bounty', challenge_object.id)
     context = get_base_context(request)
-    exp_date = datetime.datetime.now() + datetime.timedelta(60)    
+    exp_date = datetime.datetime.now() + datetime.timedelta(EXPIRE_DAYS)    
     json_exp_date = json.dumps(exp_date, cls=DjangoJSONEncoder)
     request.session['expiration'] = json_exp_date
     context['expiration'] = dateToString(exp_date)

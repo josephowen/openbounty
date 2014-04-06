@@ -109,7 +109,14 @@ def back_challenge(request, challenge_id, action):
             user.save()
 
 def challenge(request, challenge_id):
+    if request.method == 'POST':
+        back_challenge(request, request.POST['challenge_id'], request.POST['action'])
     context = get_base_context(request)
-    context['challenge'] = Challenge.objects.get(id = challenge_id)
+    challenge = Challenge.objects.get(id = challenge_id)
+    context['challenge'] = challenge
+    if Backing.objects.filter(user=request.user, challenge=challenge):    
+        context['backed'] = True
+    else:
+        context['backed'] = False
     return render(request, 'openbounty/challenge.html', context)
     

@@ -7,6 +7,9 @@ class ChallengeForm(forms.ModelForm):
 		model = Challenge
 		fields = ["bounty","title","challenge","expiration_date"]
 
+class MoneyForm(forms.Form):
+    money = forms.DecimalField(decimal_places=2,max_digits=10)
+    
 class CommentForm(forms.ModelForm):
 	#comment = forms.CharField(widget=forms.Textarea)
 	class Meta:

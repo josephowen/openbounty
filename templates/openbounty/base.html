@@ -43,7 +43,7 @@
                 <ul class="nav navbar-nav">
                     {# Navbar stuff generation goes here #}
                     {% for link in navlinks %}
-                      <li class="{% tabactive link.url request %}" ><a href="{% url link.url %}">{{ link.label }}</a></li>
+                      <li class="{% tabactive link.url request %} {{ link.url }}" ><a href="{% url link.url %}">{{ link.label }}</a></li>
                     {% endfor %}
                 </ul>
             </div>

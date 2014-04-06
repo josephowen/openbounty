@@ -1,6 +1,6 @@
 {% extends "openbounty/base.html" %}
 {% block head %}
-    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script language="javascript" type="text/javascript">
         $('#myTab a').click(function (e) {
         e.preventDefault()
@@ -14,15 +14,22 @@
 {% endblock title %}
 
 {% block content %}   
+<<<<<<< HEAD
     <div class="clearfix">
         <ul class="profile">
             <li>Name: {{ name }}</li>
             <li>Email: {{ email }}</li>
             <li>Phone: {{ phone }}</li>
             <li>Wallet: ${{ wallet }}</li>
+            <li>
+            <form class="add-money" action="" method="post">{% csrf_token %}
+                {{ form.money }}       
+                <button type="submit" class="btn btn-default">Add Money</button>
+            </form>
+            </li>
         </ul>
     </div>
-    <div class=""> 
+    <div> 
         <div class="challenges">
             <ul class="nav nav-tabs" id="myTab">
                     <li class="active" ><a href="#backed" data-toggle="tab">Backed Challenges</a></li>

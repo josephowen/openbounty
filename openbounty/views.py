@@ -11,7 +11,7 @@ def get_base_context(request):
     links = [{"url":"index", "label":"Home"}, {"url":"view_bounties","label":"Bounties"},]
     logged_in = request.user.is_authenticated()
     username = ''
-    # Add conditional navbar links
+    # Add conditional navbar linksl
     if logged_in:
         username = request.user.username
         links.append({"url":"create_bounty","label":"Create a New Bounty"})
@@ -83,9 +83,13 @@ def back_challenge(request, challenge_id, action):
     if action == 'back':     
         backer = Backing(user=user, challenge=challenge)
         backer.save()
+        user.wallet -= 1
+        user.save()
     else:
         backer = Backing.objects.filter(user=user, challenge=challenge)[0]
         backer.delete()
+        user.wallet += 1
+        user.save()
 
 def challenge(request, challenge_id):
     context = get_base_context(request)

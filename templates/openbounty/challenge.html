@@ -11,23 +11,25 @@ Challenge
 	<div class="description"> {{challenge.challenge}}</div>
 	<div class="expires"><span class="gray">Expires on </span>{{challenge.expiration_date}}</div>
 </div>
-{% if not backed and challenge.user != request.user %}     
-        <div class="back_challenge">
-              <form action="{{ request.path }}#challenge_{{ challenge.id }}" method="post">{% csrf_token %}
-              <input type="hidden" name="challenge_id" value="{{ challenge.id }}" />
-              <input type="hidden" name="action" value="back" />
-              <button type="submit" class="btn btn-default">Back This!</button>
-          </form>
-        </div>
-{% elif challenge.user != request.user %}
-        <form action="{{ request.path }}#challenge_{{ challenge.id }}" method="post">{% csrf_token %}
-         <input type="hidden" name="challenge_id" value="{{ challenge.id }}" />
-         <input type="hidden" name="action" value="unback" />
-         <button type="submit" class="btn btn-default">Unback This!</button>
-        </form>
-        {% endif %}
 
-<form action="{% url 'claim' challenge.id %}">
+{% if not backed and challenge.user != request.user %}     
+<form class="btn-group" action="{{ request.path }}#challenge_{{ challenge.id }}" method="post">{% csrf_token %}
+	<input type="hidden" name="challenge_id" value="{{ challenge.id }}" />
+	<input type="hidden" name="action" value="back" />
+	<button type="submit" class="btn btn-default">Back This!</button>
+	<input type="hidden" class="btn" /> <!-- fake sibling to right -->
+</form>
+{% elif challenge.user != request.user %}
+<form class="btn-group" action="{{ request.path }}#challenge_{{ challenge.id }}" method="post">{% csrf_token %}
+	<input type="hidden" name="challenge_id" value="{{ challenge.id }}" />
+	<input type="hidden" name="action" value="unback" />
+	<button type="submit" class="btn btn-default btn-success">Unback This!</button>
+	<input type="hidden" class="btn" /> <!-- fake sibling to right -->
+</form>
+{% endif %}
+
+<form class="btn-group" action="{% url 'claim' challenge.id %}">
+	<input type="hidden" class="btn" /> <!-- fake sibling to left -->
 	<button class="btn btn-default" type="submit">Submit a Claim</button>
 </form>
 {% comment %}
@@ -38,10 +40,10 @@ Challenge
 <h2>Claims</h2>
 {% for claim in claims %}
 <div>
-<a href="{{ claim.url }}">{{ claim.url }}</a>
+	<a href="{{ claim.url }}">{{ claim.url }}</a>
 </div>
 <div>
-{{ claim.description }}
+	{{ claim.description }}
 </div>
 {% endfor %}
 
@@ -69,8 +71,8 @@ Challenge
 {% get_comment_form for challenge as form %}
 <form action="{% comment_form_target %}" method="POST">
 	{% csrf_token %}
-		<textarea cols="40" id="id_comment" name="comment" class="form-control" rows="2" placeholder="Type your comment here"></textarea>
-		<button type="submit" class="btn btn-default btn-primary" value="Add comment" id="id_submit">Add comment</button>
+	<textarea cols="40" id="id_comment" name="comment" class="form-control" rows="2" placeholder="Type your comment here"></textarea>
+	<button type="submit" class="btn btn-default btn-primary" value="Add comment" id="id_submit">Add comment</button>
 	{{ form.honeypot }}
 	{{ form.content_type }}
 	{{ form.object_pk }}

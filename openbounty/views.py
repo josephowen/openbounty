@@ -1,8 +1,8 @@
 import datetime
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from openbounty.models import Challenge, BountyUser, Comment
-from openbounty.forms import ChallengeForm, CommentForm
+from openbounty.models import Challenge, BountyUser, Backing
+from openbounty.forms import ChallengeForm
 # Create your views here.
 
 def get_base_context(request):
@@ -44,42 +44,26 @@ def create(request):
     return render(request, 'openbounty/create.html', context)
 
 def view_challenges(request):
-    form = CommentForm()
-    if request.method == 'POST':
-        add_comment(request)
     context = get_base_context(request)
     challenges = Challenge.objects.all()
-    context['contents'] = []
+    challengelist = []
     for challenge in challenges:
-        data = {}        
-        data['challenge'] = challenge   
-        data['challenge'].bounty = int(data['challenge'].bounty)
-        data['comments'] = len(Comment.objects.filter(challenge=challenge))
-        context['contents'].append(data)
-    context['form'] = form
-    return render(request, 'openbounty/view.html', context)
+        challenge.bounty = int(challenge.bounty)
+        challengelist.append(challenge)
+
+    context['challenges'] = challengelist
+    return render(request, 'openbounty/all_challenges.html', context)
+
+def back_challenge(request, challenge_id):
+    if not user.is_authenticated:
+        redirect("index")
+    challenge = Challenge.objects.get(id = challenge_id)
+    user = request.user
+    backer = Backing(user=user, challenge=challenge)
+    backer.save()
 
 def challenge(request, challenge_id):
-    form = CommentForm()
-    if request.method == 'POST':
-        add_comment(request)
     context = get_base_context(request)
-    context['form'] = form
     context['challenge'] = Challenge.objects.get(id = challenge_id)
-    context['comments'] = Comment.objects.filter(challenge=context['challenge'])
     return render(request, 'openbounty/challenge.html', context)
-
-def add_comment(request):
-    form = CommentForm(request.POST)
-    if form.is_valid() and request.user.is_authenticated():
-        title = form.cleaned_data['title']
-        comment = form.cleaned_data['comment']
-        challenge_id = request.POST['challenge_id']
-        challenge = Challenge.objects.get(id = challenge_id)
-        user = request.user
-        date_posted = datetime.datetime.now()
-        comment_object = Comment.objects.create(user=user,title=title,comment=comment,challenge=challenge,date_posted=date_posted)
-        return HttpResponseRedirect('')
-    elif not request.user.is_authenticated():
-        return HttpResponse("You need to login");
     

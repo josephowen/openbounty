@@ -1,4 +1,6 @@
 {% extends "openbounty/base.html" %}
+{% load threadedcomments_tags %}
+
 {% block title %}
 Challenge
 {% endblock title %}
@@ -17,14 +19,23 @@ Challenge
 	<input type="submit" value="Submit" />
 	</form>
 </div>
-<div class = "comments">
-    {# {{content.challenge.user}}
-    {% for comment in comments %}
-        <div class="comment">
-            <div class="title">Title: {{comment.title}}</div>
-            <div class="comment">Comment: {{comment.comment}}</div>
-            <div class="user">User: {{comment.user}}</div>
-        </div>
-    {% endfor %} #}
-</div>
+
+{% render_comment_list for challenge %}
+{% render_comment_form for challenge %}
+
+        {#<div class = "comments">
+            {{content.challenge.user}}
+            {% for comment in comments %}
+                <div class="comment">
+        <div class = "comments">
+            {{challenge.user}}
+            {% for comment in comments %}
+                <div class="comment">
+                    <div name="title">Title: {{comment.title}}</div>
+                    <div name="comment">Comment: {{comment.comment}}</div>
+                    <div name="user">User: {{comment.user}}</div>
+                </div>
+            {% endfor %}
+        </div>#}
+        
 {% endblock content %}

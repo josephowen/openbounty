@@ -10,7 +10,7 @@ def get_base_context(request):
     logged_in = request.user.is_authenticated()
     if logged_in:
         username = request.user.username
-    links = [{"url":"index", "label":"Home"}, {"url":"login", "label":"Log in"}, {"url":"register", "label":"Register"}, {"url":"logout", "label":"Log out"}]
+    links = [{"url":"index", "label":"Home"}, {"url":"view_challenges", "label":"Challenges"}, {"url":"login", "label":"Log in"}, {"url":"register", "label":"Register"}, {"url":"logout", "label":"Log out"}]
     context = {'request':request, 'navlinks':links, 'logged_in':logged_in, 'username':username}
     return context
 
@@ -56,8 +56,8 @@ def challenge(request, challenge_id):
     form = CommentForm()
     if request.method == 'POST':
         add_comment(request)
-    context = {}
-    context['form'] = form    
+    context = get_base_context(request)
+    context['form'] = form
     context['challenge'] = Challenge.objects.get(id = challenge_id)
     context['comments'] = Comment.objects.filter(challenge=context['challenge'])
     return render(request, 'openbounty/challenge.html', context)

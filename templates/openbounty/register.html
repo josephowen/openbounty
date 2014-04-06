@@ -9,49 +9,37 @@
     You must log out before you can register.
     <br />
   {% else %}
-    <div class="state">
+    <!--<div class="state">
     {{ state|linebreaks }}
     <font color="red">{{ errors|linebreaks }}</font>
-    </div>
-    <form action="{% url 'register' %}" method="post">
+    </div>-->
+    <form class="form-signin" action="{% url 'register' %}" method="post">
       {% csrf_token %}
-      <div class="form">
-        <label for="username">Username:</label><br />
-      <input type="text" name="username" value="{{ username }}" size  ="40" />
-      </div>
-  
-      <div class="form">
-        <label for="first">First Name:</label><br />
-      <input type="text" name="first" value="{{ first }}" size="40"   />
-      </div>
-  
-      <div class="form">
-        <label for="last">Last Name:</label><br />
-        <input type="text" name="last" value="{{ last }}" size="40" />
-      </div>
-  
-      <div class="form">
-        <label for="email">Email Address:</label><br />
-      <input type="text" name="email" value="{{ email }}" size="40"   />
-      </div>
-  
-      <div class="form">
-        <label for="phone">Phone Number:</label><br />
-      <input type="text" name="phone" value="{{ phone }}" size="40"   />
-      </div>
-  
-      <div class="form">
-        <label for="password">Password:</label><br />
-        <input type="password" name="password" value="" size="40" />
-      </div>
+      <h2 class="form-signin-heading">Register for Open Bounty</h2>
+
+      <input required class="form-control" placeholder="Username" type="text" name="username" value="{{ username }}" size  ="40" />
       
-      <div class="form">
-        <label for="reenterpassword">Reenter Password:</label><br />
-      <input type="password" name="reenterpassword" value="" size=" 40" />
-      </div>
+      <input required class="form-control" placeholder="First Name" type="text" name="first" value="{{ first }}" size="40" />
       
-      <input type="submit" value="Register" />
+      <input required class="form-control" placeholder="Last Name" type="text" name="last" value="{{ last }}" size="40" />
+      
+      <input required class="form-control" placeholder="Email Address" type="text" name="email" value="{{ email }}" size="40" />
+      
+      <input required class="form-control" placeholder="Phone number" type="text" name="phone" value="{{ phone }}" size="40" />
+      
+      <input required class="form-control" placeholder="Password" type="password" name="password" value="" size="40" />
+      
+      <input required class="form-control" placeholder="Reenter Password" type="password" name="reenterpassword" value="" size=" 40" />
+      
+      <br />
+      
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
       <input type="hidden" name="next" value="{{ next }}" />
+
+      {% if errors %}
+        <div class="alert alert-danger">{{ errors }}</div>
+      {% endif %}
+
     </form>
   {% endif %}
 {% endblock content %}

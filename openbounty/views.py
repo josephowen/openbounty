@@ -3,7 +3,7 @@ import json
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.serializers.json import DjangoJSONEncoder
-from openbounty.models import Challenge, BountyUser, Backing
+from openbounty.models import Challenge, BountyUser, Backing, Proof
 from openbounty.forms import ChallengeForm
 # Create your views here.
 
@@ -81,6 +81,17 @@ def claim(request, challenge_id):
     context = get_base_context(request)
     challenge = Challenge.objects.get(id=challenge_id)
     context['challenge'] = challenge
+    if request.method == 'POST':
+        url = description = ""
+        url = request.POST.get("url", "")
+        description = request.POST.get("description", "")
+        if url != "" and description != "":
+            print "Saving"
+            proof = Proof(user=request.user, challenge=challenge, url=url, description=description)
+            proof.save()
+            return redirect("bounty", challenge_id)
+        print "posted, but no luck"
+    print "not posting here"
     return render(request, 'openbounty/claim.html', context)
 
 

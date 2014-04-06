@@ -15,6 +15,7 @@ class Challenge(models.Model):
     fulfilled = models.BooleanField(default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     backers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='backings', through='Backing')
+    doers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='proofs', through='Proof')
 
     
 class BountyUser(AbstractUser):
@@ -25,3 +26,11 @@ class BountyUser(AbstractUser):
 class Backing(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     challenge = models.ForeignKey(Challenge)
+
+class Proof(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    challenge = models.ForeignKey(Challenge)
+    url = models.CharField(max_length=100, blank=True)
+    description = models.CharField(max_length=5000)
+    votes = models.IntegerField(default=0)
+    winner = models.BooleanField(default=False)

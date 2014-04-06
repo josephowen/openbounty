@@ -20,11 +20,12 @@ Challenge
 {% get_comment_list for challenge as list %}
 
 {% for comment in list %}
-    {{ comment.name }}
-    <br />
-    {{ comment.comment }}
-    <br />
-    <br />
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <strong>{{ comment.user }}</strong>
+            {{ comment.comment }}
+        </div>
+    </div>
 {% endfor %}
 
 {% if user.is_authenticated %}

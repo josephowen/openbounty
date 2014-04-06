@@ -10,8 +10,8 @@ Unclaimed Bounties
 {# eventualy we'd want to like maybe filter them at all #}
 <div id="challenge-list">
 	{% for content in contents %} 
-	<div class="challenge panel panel-default">  
-		<div class="panel-body">
+	<div class="panel panel-default">
+		<div class="challenge panel-body">
 			<div class="bounty">${{content.challenge.bounty}}</div>
 			<div class="challenge-info">
 				<div class="expire-date">Expires {{content.challenge.expiration_date}}</div>

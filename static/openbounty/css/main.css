@@ -23,16 +23,35 @@ h1 small { padding-left: 1em; }
 
 #challenge-list { max-width: 900px; }
 
+.challenge {
+	height: auto;
+	vertical-align: middle;
+}
 .challenge .bounty { 
-	width: 110px;
-	padding: 10px;
+	width: 14%;
+	/*padding: 10px;*/
 	font-size: 2em;
+	line-height: 2em;
 	text-align: center;
-	float:left;
+	display: inline-block;
+	vertical-align: middle;
+	/*display: table-cell;*/
+	/*height: 100%;*/
+	/*padding-bottom: 100%;
+	margin-bottom: -100%;
+    display: flex;
+    justify-content:center;
+    align-content:center;
+    flex-direction:column; /* colu*/mn | row */
 }
 .challenge .challenge-info { 
-	margin-left: 110px;
+	width: 85%;
+	/*margin-left: 110px;*/
 	padding-left: 10px;
+	display: inline-block;
+	vertical-align: middle;
+/*	padding-bottom: 100%;
+	margin-bottom: -100%;*/
 }
 .challenge .expire-date { float:right; }
 .challenge .title { float:none; }

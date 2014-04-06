@@ -36,7 +36,7 @@ def create(request):
     form = ChallengeForm()
     if request.method == 'POST':
         form = ChallengeForm(request.POST)
-        if form.is_valid() and request.user.is_authenticated():
+        if form.is_valid() and request.user.is_authenticated() and request.user.wallet >= 1:
             bounty = 1
             title = form.cleaned_data['title']
             challenge = form.cleaned_data['challenge']
@@ -65,7 +65,7 @@ def view_challenges(request):
         try:
             all_backers = Backing.objects.filter(challenge=challenge)
             challenge_and_backers['backers'] = len(all_backers)
-            if Backing.objects.filter(user=request.user, challenge=challenge):
+            if request.user.is_authenticated() and Backing.objects.filter(user=request.user, challenge=challenge):
                  challenge_and_backers['backed'] = True
         except Backing.DoesNotExist:
             challenge_and_backers['backers']  = None
@@ -105,19 +105,29 @@ def back_challenge(request, challenge_id, action):
         if len(backers) == 0:
             backer = Backing(user=user, challenge=challenge)
             backer.save()
-        backer.save()
-        user.wallet -= 1
-        user.save()
+            challenge.bounty += 1
+            challenge.save()
+            user.wallet -= 1
+            user.save()
     elif action == 'unback':
         backers = Backing.objects.filter(user=user, challenge=challenge)
         if len(backers) == 1:
             backer = backers[0]
             backer.delete()
-        user.wallet += 1
-        user.save()
+            challenge.bounty -= 1
+            challenge.save()
+            user.wallet += 1
+            user.save()
 
 def challenge(request, challenge_id):
+    if request.method == 'POST':
+        back_challenge(request, request.POST['challenge_id'], request.POST['action'])
     context = get_base_context(request)
-    context['challenge'] = Challenge.objects.get(id = challenge_id)
+    challenge = Challenge.objects.get(id = challenge_id)
+    context['challenge'] = challenge
+    if Backing.objects.filter(user=request.user, challenge=challenge):    
+        context['backed'] = True
+    else:
+        context['backed'] = False
     return render(request, 'openbounty/challenge.html', context)
     

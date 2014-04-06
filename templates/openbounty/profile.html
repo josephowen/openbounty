@@ -19,7 +19,6 @@ Profile
     <li>Email: {{ email }}</li>
     <li>Phone: {{ phone }}</li>
     {% if venmo %}            
-    <li>Wallet: ${{ wallet }}</li>
     <li>Venmo Balance: ${{ venmo }}</li>
     <li>
       <form class="add-money" action="" method="post">{% csrf_token %}
@@ -27,7 +26,8 @@ Profile
         <button type="submit" name="add" class="btn btn-sm">Add Money</button>
         <button type="submit" name="minus" class="btn btn-sm">Subtract Money</button>
       </li>
-      {% else %}            
+      {% else %}
+      <li>Wallet: ${{ wallet }} (Committed: ${{ committed }})</li>
       <li>
         <a href="https://api.venmo.com/v1/oauth/authorize?client_id=1676&scope=make_payments%20access_profile%20access_balance">Connect to Venmo</a>
       </li>

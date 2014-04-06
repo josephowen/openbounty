@@ -11,7 +11,8 @@ def profile(request):
     if request.user.is_authenticated():
         user = request.user    
         context = get_base_context(request)    
-        context = venmo(request, context)     
+        context = venmo(request, context)
+        context['committed'] = len(Backing.objects.filter(user=user))
         context['wallet'] = request.user.wallet
         context['name'] = request.user.username        
         context['email'] = request.user.email

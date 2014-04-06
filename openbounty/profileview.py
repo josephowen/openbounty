@@ -33,11 +33,12 @@ def venmo(request, context):
     user = request.user    
     if request.method == 'GET' and 'access_token' in request.GET.viewkeys():
         access_token = request.GET['access_token']
-        user.access_token = access_token
+        user.access_token = access_token        
         user.save()
     r = requests.get('https://api.venmo.com/v1/me?access_token='+user.access_token)   
     if r.status_code == 200:
         r_json = r.json()
+        user.venmo = r_json['data']['actor']['id']
         balance = r_json['data']['balance']
         context['venmo'] = balance
         context['form'] = MoneyForm()

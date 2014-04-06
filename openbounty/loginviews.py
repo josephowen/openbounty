@@ -41,7 +41,7 @@ def register(request):
         if email == "":
             errors.append("Email required.")
             failed = True
-        elif len(get_user_model().objects.filter(email=email)) != 0 and not remake:
+        elif len(get_user_model().objects.filter(email=email)) != 0:
             errors.append("Email already used.")
             failed = True
         if password == "":

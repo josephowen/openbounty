@@ -33,29 +33,29 @@ Unclaimed Bounties
 				<div class="expire-date">Expires {{ challenge.challenge.expiration_date }}</div>
 				<h4 class="title"><a href="/bounty/{{ challenge.challenge.id }}">{{ challenge.challenge.title }}</a><br>
 					<small>{{ challenge.challenge.challenge }}</small></h4>
-				<a class="comment-count" href="/bounty/{{ challenge.challenge.id }}">{{ comment_count }} Comment{% if comment_count != 1 %}s{% endif %}</a>
-                <span>{{ challenge.backers }} Backer{% if challenge.backers != 1 %}s{% endif %}</span>
-				<span class="gray">posted by</span> {{ challenge.challenge.user }}
-                 <div class="back_challenge">
-                {% if not challenge.backed and challenge.challenge.user != user %}     
-                    <form action="" method="post">{% csrf_token %}
-                            <input type="hidden" name="challenge_id" value="{{ challenge.challenge.id }}"></input>
-                            <input type="hidden" name="action" value="back"></input>
-                            <button type="submit" class="btn btn-default">Back This!</button>
-                         </form>
-                     </div>
-                {% elif challenge.challenge.user != user %}
-                    <form action="" method="post">{% csrf_token %}
-                            <input type="hidden" name="challenge_id" value="{{ challenge.challenge.id }}"></input>
-                            <input type="hidden" name="action" value="unback"></input>
-                            <button type="submit" class="btn btn-default">Unback This!</button>
-                         </form>
-                     </div>
-                {% endif %}
-			</div>
-		</div>
-	</div>
-	{% endfor %}
+          <a class="comment-count" href="/bounty/{{ challenge.challenge.id }}">{{ comment_count }} Comment{% if comment_count != 1 %}s{% endif %}</a>
+          <span>{{ challenge.backers }} Backer{% if challenge.backers != 1 %}s{% endif %}</span>
+          <span class="gray">posted by</span> {{ challenge.challenge.user }}
+          <div class="back_challenge">
+            {% if not challenge.backed and challenge.challenge.user != user %}     
+            <form action="" method="post">{% csrf_token %}
+              <input type="hidden" name="challenge_id" value="{{ challenge.challenge.id }}"></input>
+              <input type="hidden" name="action" value="back"></input>
+              <button type="submit" class="btn btn-default">Back This!</button>
+            </form>
+          </div>
+          {% elif challenge.challenge.user != user %}
+          <form action="" method="post">{% csrf_token %}
+            <input type="hidden" name="challenge_id" value="{{ challenge.challenge.id }}"></input>
+            <input type="hidden" name="action" value="unback"></input>
+            <button type="submit" class="btn btn-default">Unback This!</button>
+          </form>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 </div>
 
 {% endblock content %}

@@ -18,6 +18,7 @@ Profile
     <li>Name: {{ name }}</li>
     <li>Email: {{ email }}</li>
     <li>Phone: {{ phone }}</li>
+    <li>Wallet: ${{ wallet }} (Committed: ${{ committed }})</li>
     {% if venmo %}            
     <li>Venmo Balance: ${{ venmo }}</li>
     <li>
@@ -27,7 +28,6 @@ Profile
         <button type="submit" name="minus" class="btn btn-sm">Subtract Money</button>
       </li>
       {% else %}
-      <li>Wallet: ${{ wallet }} (Committed: ${{ committed }})</li>
       <li>
         <a href="https://api.venmo.com/v1/oauth/authorize?client_id=1676&scope=make_payments%20access_profile%20access_balance">Connect to Venmo</a>
       </li>

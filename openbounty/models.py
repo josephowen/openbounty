@@ -18,7 +18,7 @@ class Challenge(models.Model):
 
     
 class BountyUser(AbstractUser):
-    phone_number = models.CharField(max_length=15)
+    phone_number = models.CharField(max_length=15, blank=True)
     wallet = models.DecimalField(default=0,decimal_places=2,max_digits=500)
 
 class Backing(models.Model):

@@ -26,6 +26,13 @@ h1 small { padding-left: 1em; }
 /* Redundant now. */
 /*#challenge-list { max-width: 900px; }*/
 
+a.anchor { 
+	display: block;
+	position: relative;
+	top: -70px;
+	visibility: hidden;}
+}
+
 .challenge {
 	height: auto;
 	vertical-align: middle;
@@ -44,7 +51,10 @@ h1 small { padding-left: 1em; }
 	display: inline-block;
 	vertical-align: middle;
 }
-.challenge .expire-date { float:right; }
+.challenge .expire-date { 
+	float:right; 
+	text-align: right;
+}
 .challenge .title { float:none; }
 .challenge h4 {
 	margin-top: 0em;
@@ -78,7 +88,6 @@ h1 small { padding-left: 1em; }
 	height: 100%;
 	text-align: center;
 }
-#
 
 
 /* mimicking the 'subtle' stuff */

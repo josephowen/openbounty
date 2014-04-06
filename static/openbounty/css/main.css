@@ -48,6 +48,8 @@ h1 small { padding-left: 1em; }
 	float: right;
 }
 
+#id_honeypot { display: none; }
+
 
 /* mimicking the 'subtle' stuff */
 .gray { color: #999; }

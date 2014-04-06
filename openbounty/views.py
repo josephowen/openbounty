@@ -12,6 +12,7 @@ def get_base_context(request):
     # Add conditional navbar links
     if logged_in:
         username = request.user.username
+        links.append({"url":"profile", "label":"Account"})
         links.append({"url":"logout", "label":"Log out"})
     else:
         links.append({"url":"register", "label":"Register"})

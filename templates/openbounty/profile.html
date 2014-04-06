@@ -1,0 +1,21 @@
+{% extends "openbounty/base.html" %}
+{% block title %}
+ Profile
+{% endblock title %}
+
+{% block content %}
+    <div class="row-fluid">        
+        <div id = "profile">
+            Name: {{ name }}
+            Email: {{ email }}
+            Phone: {{ phone }}
+            Wallet: ${{ wallet }}
+        </div>
+        <div id="challenges">
+            <ul class="nav nav-tabs" id="myTab">
+                    <li class="active" ><a href="#backed" data-toggle="tab">Backed Challenges</a></li>
+                    <li><a href="#started" data-toggle="tab">Challenges Started</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock content %}

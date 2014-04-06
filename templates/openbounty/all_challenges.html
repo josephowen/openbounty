@@ -5,6 +5,19 @@
 Unclaimed Bounties
 {% endblock title %}
 
+{% block head %}
+<script language="javascript" type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".clickableDiv").click(function() {
+			window.document.location = $(this).attr("href");
+		}).hover(function() {
+			$(this).toggleClass('hover');
+		});
+	});
+</script>
+{% endblock head %}
+
 {% block content %}
 
 <h1>Unclaimed Bounties <small>Support your favorites!</small></h1>
@@ -13,7 +26,7 @@ Unclaimed Bounties
 <div id="challenge-list">
 	{% for challenge in challenges %}
 	{% get_comment_count for challenge as comment_count %}
-	<div class="challenge panel panel-default">  
+	<div class="challenge panel panel-default clickableDiv" href="/challenge/{{ challenge.id }}">  
 		<div class="panel-body">
 			<div class="bounty">${{ challenge.bounty }}</div>
 			<div class="challenge-info">

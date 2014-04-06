@@ -131,8 +131,7 @@ def challenge(request, challenge_id):
             if claim_id:
                 print "claim_id"
                 claim = Proof.objects.get(id=claim_id)
-                hasVoted = (len(ClaimVotes.objects.filter(user=request.user, claim=claim)) != 0)
-                if not hasVoted:
+                if request.user.is_authenticated() and len(ClaimVotes.objects.filter(user=request.user, claim=claim)) != 0:
                     print "hasn't voted"
                     claimvote = ClaimVotes(user=request.user, claim=claim)
                     claimvote.save()
@@ -147,12 +146,12 @@ def challenge(request, challenge_id):
     proofs = Proof.objects.filter(challenge=challenge)
     proof_list = []
     for proof in proofs:
-        is_me = (len(ClaimVotes.objects.filter(user=request.user, claim=proof)) != 0)
+        is_me = request.user.is_authenticated() and (len(ClaimVotes.objects.filter(user=request.user, claim=proof)) != 0)
         proof_list.append({"proof":proof, "me":is_me})
 
     context['claims'] = proof_list
 
-    if Backing.objects.filter(user=request.user, challenge=challenge):    
+    if request.user.is_authenticated() and Backing.objects.filter(user=request.user, challenge=challenge):    
         context['backed'] = True
     else:
         context['backed'] = False

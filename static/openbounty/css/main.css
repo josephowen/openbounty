@@ -75,7 +75,8 @@ a.anchor {
 .clickableDiv:nth-child(even) { background-color: #f3f3f3; }
 .clickableDiv:hover { background-color: #d9edf7; }
 
-span.backed {
+span.backed,
+span.voted {
 	background-color: #DFF0D8;
 }
 
@@ -135,12 +136,22 @@ ul.profile{
 }
 #id_submit {
 	float: right;
+	margin-bottom: 2em; 
 }
 
+#claim-list .input-group {
+	display: inline-block;
+	width: auto;
+}
 #claim-list span.vote {
 	background-color: #F7F7F7;
 	color: #444;
-	/*width: 30px;*/
+}
+#claim-list span.input-group-btn {
+	width: auto;
+}
+#claim-list .claim-content {
+	display: inline-block;
 }
 
 /*************************

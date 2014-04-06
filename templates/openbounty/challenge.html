@@ -45,20 +45,22 @@ Challenge
 		<div class="panel-body">
 
 			<div class="input-group">
-				<span class="vote input-group-addon">Votes: {{ claim.votes }}</span>
+				<span class="vote input-group-addon {% if claim.me %} voted {% endif %}">{{ claim.proof.votes }} vote{% if claim.proof.votes != 1 %}s{% endif %}</span>
 				<span class="input-group-btn">
 					<form method="post">
 						{% csrf_token %}
-						<input type="hidden" name="vote" value="{{ claim.id }}" />
-						<button type="submit" class="btn btn-default">Vote</button>
+						<input type="hidden" name="vote" value="{{ claim.proof.id }}" />
+						<button type="submit" class="btn btn-default {% if claim.me %} btn-success {% endif %}">Vote</button>
 					</form>
 				</span>
 			</div>
-			<div>
-				<a href="{{ claim.url }}">{{ claim.url }}</a>
-			</div>
-			<div>
-				{{ claim.description }}
+			<div class="claim-content">
+				<div>
+					<a href="{{ claim.proof.url }}">{{ claim.proof.url }}</a>
+				</div>
+				<div>
+					{{ claim.proof.description }}
+				</div>
 			</div>
 		</div>
 	</div>

@@ -1,0 +1,12 @@
+.profile{
+    list-style-type: none;
+    float:left;
+    height:100%;
+}
+.challenges, .tab-content {
+    float:right;
+}
+
+.challenge{
+    margin-bottom:2%;
+}

@@ -129,9 +129,7 @@ def challenge(request, challenge_id):
     proofs = Proof.objects.filter(challenge=challenge)
     proof_list = []
     for proof in proofs:
-        url = proof.url
-        description = proof.description
-        proof_list.append({"url":url, "description":description})
+        proof_list.append(proof)
 
     context['claims'] = proof_list
 

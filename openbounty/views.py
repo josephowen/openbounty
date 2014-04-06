@@ -106,7 +106,7 @@ def back_challenge(request, challenge_id, action):
         return redirect("login")
     challenge = Challenge.objects.get(id = challenge_id)
     user = request.user   
-    if action == 'back' and user.wallet >= 1:
+    if action == 'back': # and user.wallet >= 1:
         backers = Backing.objects.filter(user=user, challenge=challenge)  
         if len(backers) == 0:
             backer = Backing(user=user, challenge=challenge)
